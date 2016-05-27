@@ -19,6 +19,6 @@ public class MonsterRenderer {
         return this.numMon;
     }
     public void render(Batch batch){
-        mons.createMonster(numMon-1).render(batch);
+        mons.createMonster(numMon).render(batch);
     }
 }

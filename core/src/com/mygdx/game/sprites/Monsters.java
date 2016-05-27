@@ -25,6 +25,9 @@ public class Monsters{
         mon.setX((int)((TabTitan.WIDTH/2)-(getWidth()/2)));
         mon.setY((int)(TabTitan.HEIGHT-(TabTitan.HEIGHT*0.6)));
     }
+    public void setHP(int hp){
+        this.hp = hp;
+    }
     public int getWidth(){
         return (int)(pix.getWidth()*(persent/100));
     }

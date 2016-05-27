@@ -17,8 +17,14 @@ public class MonsterFactory {
 
     public void createMonsterList(){
         for(int i = 1;i <= 10;i++){
-            Monsters monster = new Monsters(i,50*i);
+            Monsters monster = new Monsters(i-1,50*i);
             monstersList.add(monster);
+        }
+    }
+
+    public void rescaleHp(int scale){
+        for(Monsters monster : monstersList){
+            monster.setHP(monster.getHP()+(20*scale));
         }
     }
 

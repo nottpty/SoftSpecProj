@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.TabTitan;
+import com.mygdx.game.TimerTask.DpsTimer;
 import com.mygdx.game.sprites.Button;
 import com.mygdx.game.sprites.FriendBut;
 import com.mygdx.game.sprites.HealthBar;
 import com.mygdx.game.sprites.MonsterFactory;
 import com.mygdx.game.sprites.MonsterRenderer;
 import com.mygdx.game.sprites.SwordBut;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by mind on 21/05/2016.
@@ -34,21 +38,29 @@ public class PlayState extends State{
         Texture b = new Texture("hpFG.png");
 
         hp = new HealthBar(a,b,mons.createMonster((stage%10)-1).getHP());
-        monsRenderer = new MonsterRenderer(stage%10);
-
+        monsRenderer = new MonsterRenderer(stage%10-1);
+        handleTask(3);
+        handleTask(5);
     }
 
     @Override
     public void handleInput() {
-        if(Gdx.input.justTouched()){
+        if(Gdx.input.justTouched()) {
             hp.minusHP(10);
-            if(hp.getHP()<=0){
-                stage++;
-                hp.setHP(mons.createMonster(stage%10).getHP());
-                monsRenderer.setNumMon(stage%10);
-            }
-            //ถ้ามอนตาย ++ state เรนเดอร์มอนใหม่
         }
+        if(hp.getHP()<=0){
+            stage++;
+            if(stage % 10 == 1)
+                mons.rescaleHp(stage / 10 + 1);
+            hp.setHP(mons.createMonster(stage%10).getHP());
+            monsRenderer.setNumMon(stage%10);
+        }
+    }
+
+    public void handleTask(int dps){
+        DpsTimer dpsTimer = new DpsTimer(dps,hp);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(dpsTimer,0,1000);
     }
 
     @Override
