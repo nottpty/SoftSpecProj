@@ -17,7 +17,7 @@ public class MonsterFactory {
 
     public void createMonsterList(){
         for(int i = 1;i <= 10;i++){
-            Monsters monster = new Monsters(i);
+            Monsters monster = new Monsters(i,50*i);
             monstersList.add(monster);
         }
     }

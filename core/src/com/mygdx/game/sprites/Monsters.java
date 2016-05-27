@@ -13,11 +13,14 @@ public class Monsters{
 
     private Sprite mon;
     private int persent;
+    private int hp;
     Texture pix;
     private Rectangle bounds;
-    public Monsters(int num){
+    private HealthBar hpBar;
+    public Monsters(int num,int hp){
         pix = new Texture("monster"+num+".png");
         mon = new Sprite(pix);
+        this.hp = hp;
         persent = ((int)(TabTitan.WIDTH*0.8)*100)/pix.getWidth();
         mon.setSize(getWidth(),getHeight());
         mon.setX((int)((TabTitan.WIDTH/2)-(getWidth()/2)));
@@ -30,12 +33,15 @@ public class Monsters{
     public int getHeight(){
         return (int)(pix.getHeight()*(persent/100));
     }
+    public void setHealth(int hp){
+
+    }
     public Texture getTexture(){return this.pix;}
     public void render(Batch batch){
         batch.begin();
         mon.draw(batch);
         batch.end();
     }
-
 }
+
 
