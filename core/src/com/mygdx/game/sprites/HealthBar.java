@@ -9,13 +9,13 @@ import com.mygdx.game.TabTitan;
  * Created by mind on 27/05/2016.
  */
 public class HealthBar {
-    private static HealthBar instance;
-    private static Sprite healthBarBG,healthBarFG;
-    private static int health;
-    static int barWidth = (int)(TabTitan.WIDTH*0.7);
-    static int barHeight = (int)(TabTitan.WIDTH*0.04);
 
-    private HealthBar (Texture bg,Texture fg){
+    private Sprite healthBarBG,healthBarFG;
+    private int health;
+    int barWidth = (int)(TabTitan.WIDTH*0.7);
+    int barHeight = (int)(TabTitan.WIDTH*0.04);
+
+    public HealthBar(Texture bg,Texture fg){
         health = 100;
 
         healthBarBG = new Sprite(bg);
@@ -31,14 +31,6 @@ public class HealthBar {
 
         healthBarFG.setOrigin(0,0);
 
-    }
-    public static HealthBar getInstance() {
-        if(instance == null){
-            Texture a = new Texture("hpBG.png");
-            Texture b = new Texture("hpFG.png");
-            instance = new HealthBar(a,b);
-        }
-        return instance;
     }
     public Sprite getHealthBarBG(){
         return this.getHealthBarBG();

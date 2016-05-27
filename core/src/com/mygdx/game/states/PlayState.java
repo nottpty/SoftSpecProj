@@ -16,7 +16,7 @@ import com.mygdx.game.sprites.SwordBut;
  */
 public class PlayState extends State{
     private Texture bg;
-    private HealthBar hp;
+//    private HealthBar hp;
     private Button swordBut,friendBut;
     private int stage;
     private MonsterFactory mons;
@@ -29,19 +29,18 @@ public class PlayState extends State{
         stage = 1;
 
         mons = new MonsterFactory();
-        Texture a = new Texture("hpBG.png");
-        Texture b = new Texture("hpFG.png");
-        hp = new HealthBar(a,b);
+//        Texture a = new Texture("hpBG.png");
+//        Texture b = new Texture("hpFG.png");
+//        hp = new HealthBar(a,b);
         monsRenderer = new MonsterRenderer(stage);
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
-            hp.minusHP(10);
+            HealthBar.getInstance().minusHP(10);
             //ถ้ามอนตาย ++ state เรนเดอร์มอนใหม่
         }
-
     }
 
     @Override
@@ -69,8 +68,6 @@ public class PlayState extends State{
 
         sb.end();
         monsRenderer.render(sb);
-        hp.render(sb);
-
     }
 
     @Override

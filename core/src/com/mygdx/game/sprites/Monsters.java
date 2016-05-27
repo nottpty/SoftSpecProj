@@ -40,6 +40,8 @@ public class Monsters{
     public void render(Batch batch){
         batch.begin();
         mon.draw(batch);
+        HealthBar.getInstance().getHealthBarBG().draw(batch);
+        HealthBar.getInstance().getHealthBarFG().draw(batch);
         batch.end();
     }
 }
