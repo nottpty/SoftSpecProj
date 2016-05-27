@@ -33,8 +33,12 @@ public class HealthBar {
 
     }
     public static HealthBar getInstance() {
-
-
+        if(instance == null){
+            Texture a = new Texture("hpBG.png");
+            Texture b = new Texture("hpFG.png");
+            instance = new HealthBar(a,b);
+        }
+        return instance;
     }
     public Sprite getHealthBarBG(){
         return this.getHealthBarBG();
