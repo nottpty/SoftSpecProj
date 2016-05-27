@@ -1,30 +1,33 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.TabTitan;
 
 /**
  * Created by mind on 13/05/2016.
  */
-public class Monsters {
+public class Monsters{
 
-    private Texture mons;
+    private Sprite mon;
     private int persent;
+    Texture pix;
     private Rectangle bounds;
-    public static int num;
-    public Monsters(){
-        num++;
-        mons = new Texture("monster"+num+".png");
-        persent = ((TabTitan.WIDTH/2)*100)/mons.getWidth();
+    public Monsters(int num){
+        pix = new Texture("monster"+num+".png");
+        mon = new Sprite(pix);
+        persent = ((int)(TabTitan.WIDTH*0.8)*100)/pix.getWidth();
+        mon.setSize(getWidth(),getHeight());
     }
-
     public int getWidth(){
-        return (int)(mons.getWidth()*(persent/100));
+        return (int)(mon.getWidth()*(persent/100));
     }
     public int getHeight(){
-        return (int)(mons.getHeight()*(persent/100));
+        return (int)(pix.getHeight()*(persent/100));
     }
-    public Texture getTexture(){return this.mons;}
+    public Texture getTexture(){return this.pix;}
+
+
 }
 

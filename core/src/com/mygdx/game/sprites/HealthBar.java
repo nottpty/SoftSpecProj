@@ -1,31 +1,55 @@
 package com.mygdx.game.sprites;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.TabTitan;
 
-public class HealthBar extends Actor {
+/**
+ * Created by mind on 27/05/2016.
+ */
+public class HealthBar {
+    private Sprite healthBarBG,healthBarFG;
+    private int health;
+    int barWidth = (int)(TabTitan.WIDTH*0.7);
+    int barHeight = (int)(TabTitan.WIDTH*0.04);
 
-    private NinePatchDrawable loadingBarBackground;
+    public HealthBar(Texture bg,Texture fg){
+        health = 100;
 
-    private NinePatchDrawable loadingBar;
+        healthBarBG = new Sprite(bg);
+        healthBarFG = new Sprite(fg);
 
-    public HealthBar() {
-        TextureAtlas skinAtlas = new TextureAtlas(Gdx.files.internal("data/uiskin.atlas"));
-        NinePatch loadingBarBackgroundPatch = new NinePatch(skinAtlas.findRegion("default-round"), 5, 5, 4, 4);
-        NinePatch loadingBarPatch = new NinePatch(skinAtlas.findRegion("default-round-down"), 5, 5, 4, 4);
-        loadingBar = new NinePatchDrawable(loadingBarPatch);
-        loadingBarBackground = new NinePatchDrawable(loadingBarBackgroundPatch);
+        healthBarBG.setSize(barWidth,barHeight);
+        healthBarFG.setSize(barWidth,barHeight);
+
+        healthBarBG.setX((TabTitan.WIDTH/2)-(barWidth/2));
+        healthBarBG.setY(TabTitan.HEIGHT-(int)(TabTitan.HEIGHT*0.1));
+        healthBarFG.setX((TabTitan.WIDTH/2)-(barWidth/2));
+        healthBarFG.setY(TabTitan.HEIGHT-(int)(TabTitan.HEIGHT*0.1));
+
+        healthBarFG.setOrigin(0,0);
+
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        float progress = 0.4f;
+    public void minusHP(int n){
+        if(this.health<=0){
+            this.health=0;
+        }else{
+            this.health-=n;
+        }
+        healthBarFG.setScale(health/(float)100,1f);
+    }
 
-        loadingBarBackground.draw(batch, getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
-        loadingBar.draw(batch, getX(), getY(), progress * getWidth() * getScaleX(), getHeight() * getScaleY());
+    public void update(){
+
+    }
+
+    public void render(Batch batch){
+        batch.begin();
+        healthBarBG.draw(batch);
+        healthBarFG.draw(batch);
+
+        batch.end();
     }
 }
