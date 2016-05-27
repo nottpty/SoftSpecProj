@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 public class MonsterRenderer {
     private MonsterFactory mons;
     private int numMon;
-    public MonsterRenderer(){
+    public MonsterRenderer(int num){
         mons = new MonsterFactory();
-
+        this.numMon = num;
     }
     public void setNumMon(int num){
         this.numMon = num;
@@ -19,9 +19,6 @@ public class MonsterRenderer {
         return this.numMon;
     }
     public void render(Batch batch){
-        batch.begin();
-        mons.createMonster(numMon);
-
-        batch.end();
+        mons.createMonster(numMon).render(batch);
     }
 }
