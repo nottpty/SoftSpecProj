@@ -2,7 +2,6 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Effect.TextDmg;
@@ -17,7 +16,6 @@ import com.mygdx.game.sprites.Player;
 import com.mygdx.game.sprites.SwordBut;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by mind on 21/05/2016.
@@ -32,9 +30,17 @@ public class PlayState extends State{
     private MonsterRenderer monsRenderer;
     private Player player;
     private TextDmg textDmg;
+
+    private MenuState skill,friend;
+    private MenuStateManager msm;
     public PlayState(GameStateManager gsm) {
 
         super(gsm);
+
+        msm = new MenuStateManager();
+        skill = new SkillMenuState(msm);
+        friend = new FriendMenuState(msm);
+        msm.push(skill);
         bg = new Texture("bg.png");
         swordBut = new SwordBut();
         friendBut = new FriendBut();
@@ -97,7 +103,7 @@ public class PlayState extends State{
         monsRenderer.render(sb);
         hp.render(sb);
         textDmg.draw(bitmapFont, sb);
-
+        msm.render(sb);
         sb.end();
 
     }
