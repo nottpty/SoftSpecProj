@@ -10,6 +10,7 @@ import com.mygdx.game.sprites.FriendBut;
 import com.mygdx.game.sprites.HealthBar;
 import com.mygdx.game.sprites.MonsterFactory;
 import com.mygdx.game.sprites.MonsterRenderer;
+import com.mygdx.game.sprites.Player;
 import com.mygdx.game.sprites.SwordBut;
 
 import java.util.Timer;
@@ -25,6 +26,7 @@ public class PlayState extends State{
     private int stage;
     private MonsterFactory mons;
     private MonsterRenderer monsRenderer;
+    private Player player;
     public PlayState(GameStateManager gsm) {
 
         super(gsm);
@@ -32,6 +34,7 @@ public class PlayState extends State{
         swordBut = new SwordBut();
         friendBut = new FriendBut();
         stage = 1;
+        player = new Player(10);
 
         mons = new MonsterFactory();
         Texture a = new Texture("hpBG.png");
@@ -46,7 +49,7 @@ public class PlayState extends State{
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
-            hp.minusHP(10);
+            hp.minusHP(player.getDmg());
         }
         if(hp.getHP()<=0){
             stage++;
