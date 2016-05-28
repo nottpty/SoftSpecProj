@@ -37,8 +37,8 @@ public class PlayState extends State{
         Texture a = new Texture("hpBG.png");
         Texture b = new Texture("hpFG.png");
 
-        hp = new HealthBar(a,b,mons.createMonster((stage%10)-1).getHP());
-        monsRenderer = new MonsterRenderer(stage%10-1);
+        hp = new HealthBar(a,b,mons.createMonster(stage%10).getHP());
+        monsRenderer = new MonsterRenderer(stage%10);
         handleTask(3);
         handleTask(5);
     }
