@@ -3,6 +3,9 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Effect.TextDmg;
 import com.mygdx.game.TabTitan;
 import com.mygdx.game.TimerTask.DpsTimer;
 import com.mygdx.game.sprites.Button;
@@ -24,9 +27,11 @@ public class PlayState extends State{
     private HealthBar hp;
     private Button swordBut,friendBut;
     private int stage;
+    private BitmapFont bitmapFont;
     private MonsterFactory mons;
     private MonsterRenderer monsRenderer;
     private Player player;
+    private TextDmg textDmg;
     public PlayState(GameStateManager gsm) {
 
         super(gsm);
@@ -35,6 +40,9 @@ public class PlayState extends State{
         friendBut = new FriendBut();
         stage = 1;
         player = new Player(10);
+        bitmapFont = new BitmapFont();
+        bitmapFont.getData().setScale(5.0f,5.0f);
+        textDmg = new TextDmg(player.getDmg()+"",Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
 
         mons = new MonsterFactory();
         Texture a = new Texture("hpBG.png");
@@ -50,6 +58,7 @@ public class PlayState extends State{
     public void handleInput() {
         if(Gdx.input.justTouched()) {
             hp.minusHP(player.getDmg());
+            textDmg = new TextDmg(player.getDmg()+"",Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
         }
         if(hp.getHP()<=0){
             stage++;
@@ -69,24 +78,28 @@ public class PlayState extends State{
     @Override
     public void update(float dt) {
         handleInput();
+        if(textDmg != null)
+            textDmg.update(dt);
     }
 
     @Override
-    public void render(Batch sb) {
+    public void render(SpriteBatch sb) {
         int barWidth = (int)(TabTitan.WIDTH*0.9);
         int barHeight = (int)(TabTitan.WIDTH*0.1);
         sb.begin();
 
-        sb.draw(bg,0,0, TabTitan.WIDTH,TabTitan.HEIGHT);
-        sb.draw(swordBut.getTexture(),0,0,
-                swordBut.getWidth(),swordBut.getHeight());
-        sb.draw(friendBut.getTexture(),(int)(TabTitan.WIDTH*0.5),0,
-                friendBut.getWidth(),friendBut.getHeight());
+        sb.draw(bg, 0, 0, TabTitan.WIDTH, TabTitan.HEIGHT);
+        sb.draw(swordBut.getTexture(), 0, 0,
+                swordBut.getWidth(), swordBut.getHeight());
+        sb.draw(friendBut.getTexture(), (int) (TabTitan.WIDTH * 0.5), 0,
+                friendBut.getWidth(), friendBut.getHeight());
+
+        monsRenderer.render(sb);
+        hp.render(sb);
+        textDmg.draw(bitmapFont, sb);
 
         sb.end();
-        monsRenderer.render(sb);
 
-        hp.render(sb);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.TabTitan;
 
@@ -36,10 +37,8 @@ public class Monsters{
         return (int)(pix.getHeight()*(persent/100));
     }
     public Texture getTexture(){return this.pix;}
-    public void render(Batch batch){
-        batch.begin();
+    public void render(SpriteBatch batch){
         mon.draw(batch);
-        batch.end();
     }
 
 }

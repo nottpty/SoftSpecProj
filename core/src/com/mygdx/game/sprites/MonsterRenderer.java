@@ -1,6 +1,7 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by mind on 27/05/2016.
@@ -18,7 +19,7 @@ public class MonsterRenderer {
     public int getNumMon(){
         return this.numMon;
     }
-    public void render(Batch batch){
+    public void render(SpriteBatch batch){
         mons.createMonster(numMon).render(batch);
     }
 }
