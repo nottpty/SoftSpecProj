@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Effect.TextDmg;
+import com.mygdx.game.Effect.TextDmgPool;
 import com.mygdx.game.TabTitan;
 import com.mygdx.game.TimerTask.DpsTimer;
 import com.mygdx.game.sprites.Button;
@@ -29,7 +30,7 @@ public class PlayState extends State{
     private MonsterFactory mons;
     private MonsterRenderer monsRenderer;
     private Player player;
-    private TextDmg textDmg;
+    private TextDmgPool textDmgPool;
 
     private MenuState skill,friend;
     private MenuStateManager msm;
@@ -48,7 +49,7 @@ public class PlayState extends State{
         player = new Player(10);
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(5.0f,5.0f);
-        textDmg = new TextDmg(player.getDmg()+"",Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+        textDmgPool = new TextDmgPool(player);
 
         mons = new MonsterFactory();
         Texture a = new Texture("hpBG.png");
@@ -64,7 +65,7 @@ public class PlayState extends State{
     public void handleInput() {
         if(Gdx.input.justTouched()) {
             hp.minusHP(player.getDmg());
-            textDmg = new TextDmg(player.getDmg()+"",Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+            textDmgPool.showTextDmg();
         }
         if(hp.getHP()<=0){
             stage++;
@@ -83,9 +84,8 @@ public class PlayState extends State{
 
     @Override
     public void update(float dt) {
+        textDmgPool.update(dt);
         handleInput();
-        if(textDmg != null)
-            textDmg.update(dt);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class PlayState extends State{
 
         monsRenderer.render(sb);
         hp.render(sb);
-        textDmg.draw(bitmapFont, sb);
+        textDmgPool.draw(bitmapFont, sb);
         msm.render(sb);
         sb.end();
 

@@ -12,13 +12,15 @@ public class Player {
 
     public Player(int dmg){
         this.dmg = dmg;
+    }
+
+    public void buildSkill(){
         skillHeros.add(new Critical_Skill());
         skillHeros.add(new DoubleDamage_skill());
         skillHeros.add(new Frost_skill());
         skillHeros.add(new Poison_skill());
         skillHeros.add(new Stone_skill());
     }
-
     public int getDmg(){
         return dmg;
     }
