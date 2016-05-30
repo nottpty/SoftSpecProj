@@ -1,7 +1,8 @@
 package com.mygdx.game.sprites;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.TabTitan;
@@ -15,10 +16,14 @@ public class HealthBar {
     private int maxHealth;
     int barWidth = (int)(TabTitan.WIDTH*0.7);
     int barHeight = (int)(TabTitan.WIDTH*0.04);
+    private BitmapFont bitmapFont;
 
     public HealthBar(Texture bg,Texture fg,int hp){
         health = hp;
         maxHealth = hp;
+        bitmapFont = new BitmapFont();
+        bitmapFont.getData().setScale(4.05f,4.0f);
+        bitmapFont.setColor(Color.BLACK);
 
         healthBarBG = new Sprite(bg);
         healthBarFG = new Sprite(fg);
@@ -60,5 +65,6 @@ public class HealthBar {
     public void render(SpriteBatch batch){
         healthBarBG.draw(batch);
         healthBarFG.draw(batch);
+        bitmapFont.draw(batch,this.health+"",healthBarBG.getX(),healthBarBG.getY()+healthBarBG.getHeight());
     }
 }
