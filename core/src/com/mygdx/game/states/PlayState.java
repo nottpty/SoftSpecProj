@@ -95,6 +95,7 @@ public class PlayState extends State{
             }else{
                 hp.minusHP(player.getDmg());
                 textDmgPool.showTextDmg();
+                System.out.println("kill : "+player.getSkillList().get(5).getName());
             }
         }
         if(hp.getHP()<=0){
@@ -116,6 +117,7 @@ public class PlayState extends State{
     public void update(float dt) {
         textDmgPool.update(dt);
         handleInput();
+        msm.update(dt);
     }
 
     @Override

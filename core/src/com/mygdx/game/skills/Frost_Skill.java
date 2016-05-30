@@ -7,9 +7,13 @@ import com.mygdx.game.sprites.Player;
  */
 public class Frost_Skill implements SkillHero {
     private boolean check;
+    private String name;
+    private int level;
 
     public Frost_Skill(){
         check = false;
+        name = "Frost";
+        this.level = 0;
     }
 
     @Override
@@ -26,4 +30,15 @@ public class Frost_Skill implements SkillHero {
     public void buySkill() {
         this.check = true;
     }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getText() {
+        return this.name+"\nLevel : "+this.level;
+    }
+
 }

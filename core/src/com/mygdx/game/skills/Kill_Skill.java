@@ -7,9 +7,16 @@ import com.mygdx.game.sprites.Player;
  */
 public class Kill_Skill implements SkillHero{
     private boolean check;
+    private String name;
+    private int level;
+    public Kill_Skill(){
+        this.check = false;
+        this.name = "Kill";
+        this.level = 0;
+    }
     @Override
     public void doAction(Player player) {
-        check = false;
+
     }
 
     @Override
@@ -21,4 +28,13 @@ public class Kill_Skill implements SkillHero{
     public void buySkill() {
 
     }
+    @Override
+    public String getName() {
+        return this.name;
+    }
+    @Override
+    public String getText() {
+        return this.name+"\nLevel : "+this.level;
+    }
+
 }

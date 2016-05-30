@@ -10,5 +10,7 @@ public interface SkillHero {
     public void doAction(Player player);
     public boolean check();
     public void buySkill();
+    public String getName();
+    public String getText();
 
 }

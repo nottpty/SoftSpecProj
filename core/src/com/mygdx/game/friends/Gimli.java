@@ -1,40 +1,45 @@
-package com.mygdx.game.skills;
-
-import com.mygdx.game.sprites.Player;
+package com.mygdx.game.friends;
 
 /**
- * Created by SAS-Maxnot19 on 28/5/2559.
+ * Created by mind on 31/05/2016.
  */
-public class Poison_Skill implements SkillHero {
+public class Gimli implements MyFriend {
+    private int level,dmg;
     private boolean check;
     private String name;
-    private int level;
-    public Poison_Skill(){
-        check = false;
-        name = "Poison";
+
+    public Gimli(){
         this.level = 0;
+        this.check = false;
+        this.name = "Gimli";
     }
     @Override
-    public void doAction(Player player) {
-        player.setDmg(player.getDmg()+((int)(player.getDmg()*0.4)));
+    public int getDamage() {
+        return this.dmg;
+    }
+
+    @Override
+    public void levelUp() {
+        this.level++;
     }
 
     @Override
     public boolean check() {
-        return check;
+        return this.check;
     }
 
     @Override
     public void buySkill() {
         this.check = true;
     }
+
     @Override
     public String getName() {
         return this.name;
     }
+
     @Override
     public String getText() {
         return this.name+"\nLevel : "+this.level;
     }
-
 }
