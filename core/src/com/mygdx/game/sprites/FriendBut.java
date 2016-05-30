@@ -3,6 +3,7 @@ package com.mygdx.game.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.TabTitan;
+import com.mygdx.game.sprites.Button;
 
 /**
  * Created by mind on 27/05/2016.

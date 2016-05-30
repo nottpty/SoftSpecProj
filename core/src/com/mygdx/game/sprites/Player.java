@@ -1,7 +1,9 @@
 package com.mygdx.game.sprites;
 
+import com.mygdx.game.skills.*;
+import com.mygdx.game.skills.SkillHero;
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by tannatanon on 5/28/2016 AD.
@@ -15,11 +17,11 @@ public class Player {
     }
 
     public void buildSkill(){
-        skillHeros.add(new Critical_Skill());
-        skillHeros.add(new DoubleDamage_skill());
-        skillHeros.add(new Frost_skill());
-        skillHeros.add(new Poison_skill());
-        skillHeros.add(new Stone_skill());
+        skillHeros.add(new com.mygdx.game.skills.Critical_Skill());
+        skillHeros.add(new DoubleDamage_Skill());
+        skillHeros.add(new Frost_Skill());
+        skillHeros.add(new Poison_Skill());
+        skillHeros.add(new Stone_Skill());
     }
     public int getDmg(){
         return dmg;

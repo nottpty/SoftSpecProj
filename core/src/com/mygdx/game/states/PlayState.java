@@ -3,8 +3,10 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Effect.TextDmg;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Effect.TextDmgPool;
 import com.mygdx.game.TabTitan;
 import com.mygdx.game.TimerTask.DpsTimer;
@@ -32,21 +34,25 @@ public class PlayState extends State{
     private Player player;
     private TextDmgPool textDmgPool;
 
-    private MenuState skill,friend;
+    private MenuState skill,friend,list;
     private MenuStateManager msm;
+    private Rectangle boundSkill,boundFriend,boundList;
+    private boolean menuShow;
+    Sprite m;
     public PlayState(GameStateManager gsm) {
 
         super(gsm);
-
+        menuShow = false;
+        player = new Player(10);
         msm = new MenuStateManager();
-        skill = new SkillMenuState(msm);
-        friend = new FriendMenuState(msm);
-        msm.push(skill);
+        skill = new SkillMenuState(msm,player);
+        friend = new FriendMenuState(msm,player);
+        list = new ListSkillMenuState(msm,player);
+        msm.push(list);
         bg = new Texture("bg.png");
         swordBut = new SwordBut();
         friendBut = new FriendBut();
         stage = 1;
-        player = new Player(10);
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(5.0f,5.0f);
         textDmgPool = new TextDmgPool(player);
@@ -59,13 +65,33 @@ public class PlayState extends State{
         monsRenderer = new MonsterRenderer(stage%10);
         handleTask(3);
         handleTask(5);
+
+        boundSkill = new Rectangle(0,0,TabTitan.WIDTH/2,swordBut.getHeight());
+        boundFriend = new Rectangle(TabTitan.WIDTH/2,0,TabTitan.WIDTH/2,swordBut.getHeight());
+        boundList = new Rectangle((int)(TabTitan.WIDTH*0.82),(int)(TabTitan.HEIGHT*0.38),(int)(TabTitan.WIDTH*0.18),(int)(TabTitan.WIDTH*0.07));
+
     }
 
     @Override
     public void handleInput() {
+        Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         if(Gdx.input.justTouched()) {
-            hp.minusHP(player.getDmg());
-            textDmgPool.showTextDmg();
+            if(menuShow){
+                if(boundList.contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
+                    msm.set(list);
+                    menuShow = false;
+                }
+            }
+            if(boundSkill.contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
+                msm.set(skill);
+                menuShow = true;
+            }else if(boundFriend.contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
+                msm.set(friend);
+                menuShow = true;
+            }else{
+                hp.minusHP(player.getDmg());
+                textDmgPool.showTextDmg();
+            }
         }
         if(hp.getHP()<=0){
             stage++;

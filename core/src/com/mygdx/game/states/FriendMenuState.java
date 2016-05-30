@@ -1,29 +1,50 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.TabTitan;
+import com.mygdx.game.sprites.Player;
 
 /**
  * Created by mind on 28/05/2016.
  */
 public class FriendMenuState extends MenuState{
-    private Texture bg;
-    private Rectangle rSkill1,rSkill2,rSkill3,rSkill4,rSkill5,rSkill6;
-    private Texture skill1,skill2,skill3,skill4,skill5,skill6;
-    private int persentMenu;
-    public FriendMenuState(MenuStateManager msm){
-        super(msm);
-        bg = new Texture("menuBG.png");
-        skill1 = new Texture("skill1.png");
-        skill2 = new Texture("skill2.png");
-        skill3 = new Texture("skill3.png");
-        skill4 = new Texture("skill4.png");
-        skill5 = new Texture("skill5.png");
-        skill6 = new Texture("skill6.png");
+    private Sprite bg;
+    private Texture tbg;
+    private Rectangle rFriend1,rFriend2,rFriend3,rFriend4,rFriend5,rFriend6;
+    private Texture friend1,friend2,friend3,friend4,friend5,friend6;
 
-        persentMenu = (int)((TabTitan.WIDTH*100.0)/bg.getWidth());
+    int skillSize, bgWid, bgHeight, bgY, scale, space;
+    private int persentMenu;
+    public FriendMenuState(MenuStateManager msm,Player player){
+        super(msm);
+
+        Texture but = new Texture("buttonFriend.png");
+        int persent = (int) (((TabTitan.WIDTH * 0.5) * 100) / but.getWidth());
+
+        tbg = new Texture("menuBG.png");
+        bg = new Sprite(tbg);
+        persentMenu = (int) ((TabTitan.WIDTH * 100.0) / tbg.getWidth());
+        bgY = (int) (but.getHeight() * (persent / 100.0));
+
+        bg.setSize((int) (bg.getWidth() * (persentMenu / 100.0)), (int) (bg.getHeight() * (persentMenu / 100.0)));
+        bg.setX(0);
+        bg.setY(bgY);
+
+        skillSize = (int) (but.getHeight() * (persent / 100.0));
+        friend1 = new Texture("friend1icon.png");
+        friend2 = new Texture("friend2icon.png");
+        friend3 = new Texture("friend3icon.png");
+        friend4 = new Texture("friend4icon.png");
+        friend5 = new Texture("friend5icon.png");
+        friend6 = new Texture("friend6icon.png");
+
+
+        scale = (int) (136 * (persentMenu / 100.0));
+        space = ((int) (136 * (persentMenu / 100.0)) - skillSize) / 2;
+
     }
 
     @Override
@@ -38,10 +59,15 @@ public class FriendMenuState extends MenuState{
 
     @Override
     public void render(SpriteBatch sb) {
-        Texture but = new Texture("buttonFriend.png");
-        int persent = (int)(((TabTitan.WIDTH*0.5)*100)/but.getWidth());
-        sb.draw(bg,0,(int)(but.getHeight()*(persent/100.0)),(int)(bg.getWidth()*(persentMenu/100.0)),(int)(bg.getHeight()*(persentMenu/100.0)));
-        sb.draw(skill2,300,300,(int)(but.getHeight()*(persent/100.0)),(int)(but.getHeight()*(persent/100.0)));
+        bg.draw(sb);
+        sb.draw(friend1, space, (int) (bgY + (2 * scale) + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+        sb.draw(friend2, space, (int) (bgY + scale + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+        sb.draw(friend3, space, (int) (bgY + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+
+        sb.draw(friend4, TabTitan.WIDTH / 2 + space, (int) (bgY + (2 * scale) + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+        sb.draw(friend5, TabTitan.WIDTH / 2 + space, (int) (bgY + scale + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+        sb.draw(friend6, TabTitan.WIDTH / 2 + space, (int) (bgY + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+
     }
 
     @Override

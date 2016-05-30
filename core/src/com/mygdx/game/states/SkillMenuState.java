@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.TabTitan;
+import com.mygdx.game.sprites.Player;
 
 /**
  * Created by mind on 28/05/2016.
@@ -12,16 +13,17 @@ import com.mygdx.game.TabTitan;
 public class SkillMenuState extends MenuState {
     private Texture tbg;
     private Sprite bg;
-    private Rectangle rSkill1, rSkill2, rSkill3, rSkill4, rSkill5, rSkill6;
+    private Rectangle rSkill1, rSkill2, rSkill3, rSkill4, rSkill5, rSkill6,exit;
     private Texture skill1, skill2, skill3, skill4, skill5, skill6;
 
     int skillSize, bgWid, bgHeight, bgY, scale, space;
     private int persentMenu;
 
-    public SkillMenuState(MenuStateManager msm) {
+    public SkillMenuState(MenuStateManager msm,Player player) {
         super(msm);
         Texture but = new Texture("buttonFriend.png");
         int persent = (int) (((TabTitan.WIDTH * 0.5) * 100) / but.getWidth());
+
         tbg = new Texture("menuBG.png");
         bg = new Sprite(tbg);
         persentMenu = (int) ((TabTitan.WIDTH * 100.0) / tbg.getWidth());
@@ -30,7 +32,6 @@ public class SkillMenuState extends MenuState {
         bg.setSize((int) (bg.getWidth() * (persentMenu / 100.0)), (int) (bg.getHeight() * (persentMenu / 100.0)));
         bg.setX(0);
         bg.setY(bgY);
-
 
         skillSize = (int) (but.getHeight() * (persent / 100.0));
         skill1 = new Texture("skill1.png");
@@ -42,6 +43,19 @@ public class SkillMenuState extends MenuState {
 
         scale = (int) (136 * (persentMenu / 100.0));
         space = ((int) (136 * (persentMenu / 100.0)) - skillSize) / 2;
+
+        int wid = (int)(TabTitan.WIDTH*(15.5/100));
+        int hig = (int)(bg.getHeight()*(13.7/100));
+        exit = new Rectangle(TabTitan.WIDTH-wid,bgY+(int)(bg.getHeight()*(86.3/100)),wid,hig);
+
+
+
+//        rSkill1 = new Rectangle(space, (int) (bgY + (2 * scale) + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+//        rSkill2 = new Rectangle(space, (int) (bgY + scale + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+//        rSkill3 = new Rectangle(space, (int) (bgY + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+//        rSkill4 = new Rectangle(TabTitan.WIDTH / 2 + space, (int) (bgY + (2 * scale) + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+//        rSkill5 = new Rectangle(TabTitan.WIDTH / 2 + space, (int) (bgY + scale + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
+//        rSkill6 = new Rectangle(TabTitan.WIDTH / 2 + space, (int) (bgY + 68 * (persentMenu / 100.0) - (skillSize / 2)), skillSize, skillSize);
 
     }
 
