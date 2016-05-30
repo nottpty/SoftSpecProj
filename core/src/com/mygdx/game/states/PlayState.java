@@ -12,6 +12,7 @@ import com.mygdx.game.TabTitan;
 import com.mygdx.game.TimerTask.DpsTimer;
 import com.mygdx.game.sprites.Button;
 import com.mygdx.game.sprites.FriendBut;
+import com.mygdx.game.sprites.FriendFactory;
 import com.mygdx.game.sprites.HealthBar;
 import com.mygdx.game.sprites.MonsterFactory;
 import com.mygdx.game.sprites.MonsterRenderer;
@@ -33,6 +34,7 @@ public class PlayState extends State{
     private MonsterRenderer monsRenderer;
     private Player player;
     private TextDmgPool textDmgPool;
+    private FriendFactory friends;
 
     private MenuState skill,friend,list;
     private MenuStateManager msm;
@@ -63,8 +65,10 @@ public class PlayState extends State{
 
         hp = new HealthBar(a,b,mons.createMonster(stage%10).getHP());
         monsRenderer = new MonsterRenderer(stage%10);
-        handleTask(3);
-        handleTask(5);
+        friends = new FriendFactory();
+
+        friends.bought(1);
+        handleTask(friends.getFriend(1).getDmg());
 
         boundSkill = new Rectangle(0,0,TabTitan.WIDTH/2,swordBut.getHeight());
         boundFriend = new Rectangle(TabTitan.WIDTH/2,0,TabTitan.WIDTH/2,swordBut.getHeight());
