@@ -23,10 +23,9 @@ public class SkillMenuState extends MenuState {
 
     public SkillMenuState(MenuStateManager msm,Player player) {
         super(msm);
+
         Texture but = new Texture("buttonFriend.png");
         int persent = (int) (((TabTitan.WIDTH * 0.5) * 100) / but.getWidth());
-
-
 
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(4.05f,4.0f);
