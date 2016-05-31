@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class FriendMenuState extends MenuState{
     private Sprite bg;
-    private Texture tbg,buyBut;
+    private Texture tbg,buyBut,buyButN,upBut,upButN;
     private List<Rectangle>buyBounds;
     private List<Sprite> friendList;
     int friendSize, bgWid, bgHeight, bgY, scale, space,persentMenu;
@@ -33,11 +33,14 @@ public class FriendMenuState extends MenuState{
         buyBounds = new ArrayList<Rectangle>();
         this.player = player;
         buyBut = new Texture("buyBut.png");
+        upBut = new Texture("levelUpBut.png");
+        buyButN = new Texture("buyButN.png");
+        upButN = new Texture("levelUpButN.png");
         Texture but = new Texture("buttonFriend.png");
         int persent = (int) (((TabTitan.WIDTH * 0.5) * 100) / but.getWidth());
 
         bitmapFont = new BitmapFont();
-        bitmapFont.getData().setScale(4.05f, 4.0f);
+        bitmapFont.getData().setScale(3.5f, 3.5f);
 
         tbg = new Texture("menuBG.png");
         bg = new Sprite(tbg);
@@ -80,7 +83,13 @@ public class FriendMenuState extends MenuState{
     }
 
     public void buyFriend(int index){
-        player.getFriendFactory().getFriend(index).bought();
+        int playerMoney = player.getMoney();
+        int price = player.getFriendFactory().getFriend(index).getPrice();
+        if(playerMoney>=price){
+            player.minusMoney(price);
+            player.getFriendFactory().getFriend(index).bought();
+        }
+
     }
 
     @Override
@@ -114,12 +123,40 @@ public class FriendMenuState extends MenuState{
         for(int i = 0;i<6;i++){
             friendList.get(i).draw(sb);
             if(i<=2){
-                sb.draw(buyBut,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
+                if(player.getSkillList().get(i).check()){
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(upBut,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
+                    }else {
+                        sb.draw(upButN,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
+                    }
+
+                }else{
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(buyBut,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
+                    }else {
+                        sb.draw(buyButN,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
+                    }
+
+                }
+
                 bitmapFont.draw(sb,player.getFriendFactory().getFriend(i).getText(),
                         space+friendSize+space,
                         friendList.get(i).getY()+friendSize);
             }else{
-                sb.draw(buyBut,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
+                if(player.getSkillList().get(i).check()){
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(upBut,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
+                    }else {
+                        sb.draw(upButN,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
+                    }
+                }else{
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(buyBut,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
+                    }else {
+                        sb.draw(buyButN,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
+                    }
+                }
+
                 bitmapFont.draw(sb,player.getFriendFactory().getFriend(i).getText(),
                         (TabTitan.WIDTH/2)+space+friendSize+space,
                         friendList.get(i).getY()+friendSize);

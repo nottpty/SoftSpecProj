@@ -4,7 +4,7 @@ package com.mygdx.game.friends;
  * Created by mind on 31/05/2016.
  */
 public class Legolas implements MyFriend {
-    private int level,dmg;
+    private int level,dmg,price;
     private boolean check;
     private String name;
 
@@ -13,6 +13,7 @@ public class Legolas implements MyFriend {
         this.dmg = 0;
         this.check = false;
         this.name = "Legolas";
+        this.price = 600;
     }
     @Override
     public int getDamage() {
@@ -22,6 +23,7 @@ public class Legolas implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
+        price += (int)(price*1.7);
     }
 
     @Override
@@ -58,6 +60,11 @@ public class Legolas implements MyFriend {
 
     @Override
     public String getText() {
-        return this.name+"\nLevel : "+this.level;
+        return this.name+"\nLevel : "+this.level+"\nPrice : "+this.price;
+    }
+
+    @Override
+    public int getPrice() {
+        return this.price;
     }
 }

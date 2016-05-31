@@ -17,7 +17,7 @@ import java.util.List;
  * Created by mind on 28/05/2016.
  */
 public class SkillMenuState extends MenuState {
-    private Texture tbg,buyBut;
+    private Texture tbg,buyBut,buyButN,upBut,upButN;
     private Sprite bg;
     private List<Rectangle>buyBounds;
     private List<Sprite> skillList;
@@ -30,12 +30,15 @@ public class SkillMenuState extends MenuState {
         this.player = player;
         buyBounds = new ArrayList<Rectangle>();
         buyBut = new Texture("buyBut.png");
+        buyButN = new Texture("buyButN.png");
+        upBut = new Texture("levelUpBut.png");
+        upButN = new Texture("levelUpButN.png");
 
         Texture but = new Texture("buttonFriend.png");
         int persent = (int) (((TabTitan.WIDTH * 0.5) * 100) / but.getWidth());
 
         bitmapFont = new BitmapFont();
-        bitmapFont.getData().setScale(4.05f,4.0f);
+        bitmapFont.getData().setScale(3.5f,3.5f);
 
         tbg = new Texture("menuBG.png");
         bg = new Sprite(tbg);
@@ -69,22 +72,32 @@ public class SkillMenuState extends MenuState {
             }
         }
     }
+    public void buySkill(int index){
+        int playerMoney = player.getMoney();
+        int price = player.getSkillList().get(index).getPrice();
+        if(playerMoney>=price){
+            player.minusMoney(price);
+            player.getSkillList().get(index).buySkill();
+        }
 
+    }
     @Override
     public void handleInput() {
-        Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        if(buyBounds.get(0).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(1).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(2).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(3).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(4).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(5).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
+        if(Gdx.input.justTouched()) {
+            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            if (buyBounds.get(0).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buySkill(0);
+            } else if (buyBounds.get(1).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buySkill(1);
+            } else if (buyBounds.get(2).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buySkill(2);
+            } else if (buyBounds.get(3).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buySkill(3);
+            } else if (buyBounds.get(4).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buySkill(4);
+            } else if (buyBounds.get(5).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buySkill(5);
+            }
         }
     }
 
@@ -99,12 +112,39 @@ public class SkillMenuState extends MenuState {
         for(int i = 0;i<6;i++){
             skillList.get(i).draw(sb);
             if(i<=2){
-                sb.draw(buyBut,(TabTitan.WIDTH/2)-skillSize,skillList.get(i).getY(),skillSize,skillSize);
+                if(player.getSkillList().get(i).check()){
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(upBut,(TabTitan.WIDTH/2)-skillSize,skillList.get(i).getY(),skillSize,skillSize);
+                    }else {
+                        sb.draw(upButN,(TabTitan.WIDTH/2)-skillSize,skillList.get(i).getY(),skillSize,skillSize);
+                    }
+
+                }else{
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(buyBut,(TabTitan.WIDTH/2)-skillSize,skillList.get(i).getY(),skillSize,skillSize);
+                    }else {
+                        sb.draw(buyButN,(TabTitan.WIDTH/2)-skillSize,skillList.get(i).getY(),skillSize,skillSize);
+                    }
+
+                }
                 bitmapFont.draw(sb,player.getSkillList().get(i).getText(),
                         space+skillSize+space,
                         skillList.get(i).getY()+skillSize);
             }else{
-                sb.draw(buyBut,TabTitan.WIDTH-skillSize-space,skillList.get(i).getY(),skillSize,skillSize);
+                if(player.getSkillList().get(i).check()){
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(upBut,TabTitan.WIDTH-skillSize-space,skillList.get(i).getY(),skillSize,skillSize);
+                    }else {
+                        sb.draw(upButN,TabTitan.WIDTH-skillSize-space,skillList.get(i).getY(),skillSize,skillSize);
+                    }
+                }else{
+                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                        sb.draw(buyBut,TabTitan.WIDTH-skillSize-space,skillList.get(i).getY(),skillSize,skillSize);
+                    }else {
+                        sb.draw(buyButN,TabTitan.WIDTH-skillSize-space,skillList.get(i).getY(),skillSize,skillSize);
+                    }
+
+                }
                 bitmapFont.draw(sb,player.getSkillList().get(i).getText(),
                         (TabTitan.WIDTH/2)+space+skillSize+space,
                         skillList.get(i).getY()+skillSize);

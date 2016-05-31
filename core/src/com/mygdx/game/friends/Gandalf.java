@@ -5,7 +5,7 @@ package com.mygdx.game.friends;
  */
 public class Gandalf implements MyFriend {
 
-    private int level,dmg;
+    private int level,dmg,price;
     private boolean check;
     private String name;
 
@@ -14,6 +14,7 @@ public class Gandalf implements MyFriend {
         this.dmg = 0;
         this.check = false;
         this.name = "Gandalf";
+        this.price = 300;
     }
     @Override
     public int getDamage() {
@@ -23,6 +24,7 @@ public class Gandalf implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
+        price += (int)(price*1.7);
     }
 
     @Override
@@ -40,7 +42,10 @@ public class Gandalf implements MyFriend {
             this.setDamage(this.dmg + ((int) (dmg * 0.5)));
         }
     }
-    
+    @Override
+    public int getPrice(){
+        return this.price;
+    }
     @Override
     public void bought() {
         if(check)
@@ -59,6 +64,6 @@ public class Gandalf implements MyFriend {
 
     @Override
     public String getText() {
-        return this.name+"\nLevel : "+this.level;
+        return this.name+"\nLevel : "+this.level+"\nPrice : "+this.price;
     }
 }

@@ -8,7 +8,7 @@ import com.mygdx.game.sprites.Player;
 public class Frost_Skill implements SkillHero {
     private boolean check;
     private String name;
-    private int level;
+    private int level,price;
     private int damage;
 
     public Frost_Skill(){
@@ -16,6 +16,7 @@ public class Frost_Skill implements SkillHero {
         name = "Frost";
         this.level = 0;
         this.damage = 200;
+        price = 250;
     }
 
     @Override
@@ -30,7 +31,12 @@ public class Frost_Skill implements SkillHero {
 
     @Override
     public void buySkill() {
-        this.check = true;
+        if(check)
+            upgrade();
+        if(!check) {
+            this.check = true;
+            levelUp();
+        }
     }
 
     @Override
@@ -40,13 +46,23 @@ public class Frost_Skill implements SkillHero {
 
     @Override
     public String getText() {
-        return this.name+"\nLevel : "+this.level;
+        return this.name+"\nLevel : "+this.level+"\nPrice : "+this.price;
     }
 
     @Override
-    public void upLevel() {
+    public void levelUp() {
         this.damage = (int)(damage*1.5);
         level++;
+        price += (int)(price*1.7);
+    }
+    public void upgrade() {
+        if(check) {
+            levelUp();
+        }
+    }
+    @Override
+    public int getPrice() {
+        return this.price;
     }
 
 }

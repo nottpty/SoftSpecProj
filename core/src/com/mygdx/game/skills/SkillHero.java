@@ -12,6 +12,8 @@ public interface SkillHero {
     public void buySkill();
     public String getName();
     public String getText();
-    public void upLevel();
+    public void levelUp();
+    public void upgrade();
+    public int getPrice();
 
 }

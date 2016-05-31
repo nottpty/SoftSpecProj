@@ -12,4 +12,5 @@ public interface MyFriend {
     public void setDamage(int damage);
     public String getName();
     public String getText();
+    public int getPrice();
 }

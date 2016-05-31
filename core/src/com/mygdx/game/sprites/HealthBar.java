@@ -39,7 +39,12 @@ public class HealthBar {
         healthBarFG.setOrigin(0,0);
 
     }
-
+    public int getX(){
+        return (int)this.healthBarBG.getX();
+    }
+    public int getY(){
+        return (int)this.healthBarBG.getY();
+    }
     public void setHP(int hp){
         this.health = hp;
         this.maxHealth = hp;

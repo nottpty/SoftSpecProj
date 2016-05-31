@@ -4,7 +4,7 @@ package com.mygdx.game.friends;
  * Created by mind on 31/05/2016.
  */
 public class Frodo implements MyFriend {
-    private int level,dmg;
+    private int level,dmg,price;
     private boolean check;
     private String name;
 
@@ -13,7 +13,13 @@ public class Frodo implements MyFriend {
         this.dmg = 0;
         this.check = false;
         this.name = "Frodo";
+        this.price = 200;
     }
+    @Override
+    public int getPrice(){
+        return this.price;
+    }
+
     @Override
     public int getDamage() {
         return this.dmg;
@@ -22,6 +28,7 @@ public class Frodo implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
+        price += (int)(price*1.7);
     }
 
     @Override
@@ -58,6 +65,6 @@ public class Frodo implements MyFriend {
 
     @Override
     public String getText() {
-        return this.name+"\nLevel : "+this.level;
+        return this.name+"\nLevel : "+this.level+"\nPrice : "+this.price;
     }
 }

@@ -7,13 +7,14 @@ import com.mygdx.game.sprites.Player;
  */
 public class DoubleDamage_Skill implements SkillHero {
     private boolean check;
-    private int level;
+    private int level,price;
     private String name;
 
     public DoubleDamage_Skill(){
         check = false;
         name = "x2 Damage";
         this.level = 0;
+        price = 200;
     }
 
     @Override
@@ -28,7 +29,12 @@ public class DoubleDamage_Skill implements SkillHero {
 
     @Override
     public void buySkill() {
-        this.check = true;
+        if(check)
+            upgrade();
+        if(!check) {
+            this.check = true;
+            levelUp();
+        }
     }
     @Override
     public String getName() {
@@ -36,12 +42,23 @@ public class DoubleDamage_Skill implements SkillHero {
     }
     @Override
     public String getText() {
-        return this.name+"\nLevel : "+this.level;
+        return this.name+"\nLevel : "+this.level+"\nPrice : "+this.price;
     }
 
     @Override
-    public void upLevel() {
+    public void levelUp() {
+        level++;
+        price += (int)(price*1.7);
+    }
+    public void upgrade() {
+        if(check) {
+            levelUp();
+        }
+    }
 
+    @Override
+    public int getPrice() {
+        return this.price;
     }
 
 }

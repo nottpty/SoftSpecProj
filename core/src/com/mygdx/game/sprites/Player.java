@@ -1,12 +1,5 @@
 package com.mygdx.game.sprites;
 
-import com.mygdx.game.friends.Aragorn;
-import com.mygdx.game.friends.Frodo;
-import com.mygdx.game.friends.Gandalf;
-import com.mygdx.game.friends.Gimli;
-import com.mygdx.game.friends.Legolas;
-import com.mygdx.game.friends.MyFriend;
-import com.mygdx.game.friends.Saruman;
 import com.mygdx.game.skills.Critical_Skill;
 import com.mygdx.game.skills.DoubleDamage_Skill;
 import com.mygdx.game.skills.Frost_Skill;
@@ -22,7 +15,7 @@ import java.util.List;
  * Created by tannatanon on 5/28/2016 AD.
  */
 public class Player {
-    private int dmg;
+    private int dmg,money;
     private List<SkillHero> skillHeros;
     private FriendFactory friendFactory;
 
@@ -33,6 +26,7 @@ public class Player {
         this.dmg = dmg;
         buildSkill();
         buildFriend();
+        money = 20000;
     }
 
     public void buildSkill(){
@@ -51,6 +45,12 @@ public class Player {
     public int getDmg(){
         return dmg;
     }
+    public void minusMoney(int price){
+        this.money = money-price;
+    }
+    public void addMoney(int moeny){this.money+=money;}
+
+    public int getMoney(){return this.money;}
 
     public void setDmg(int dmg) { this.dmg = dmg; }
 
@@ -75,7 +75,7 @@ public class Player {
     }
 
     public void upLevelSkill(int index) {
-        skillHeros.get(index).upLevel();
+        skillHeros.get(index).levelUp();
     }
 
     public void upDmg(){

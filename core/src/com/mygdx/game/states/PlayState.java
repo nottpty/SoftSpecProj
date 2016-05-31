@@ -12,7 +12,6 @@ import com.mygdx.game.TabTitan;
 import com.mygdx.game.TimerTask.DpsTimer;
 import com.mygdx.game.sprites.Button;
 import com.mygdx.game.sprites.FriendBut;
-import com.mygdx.game.sprites.FriendFactory;
 import com.mygdx.game.sprites.HealthBar;
 import com.mygdx.game.sprites.MonsterFactory;
 import com.mygdx.game.sprites.MonsterRenderer;
@@ -27,14 +26,14 @@ import java.util.Timer;
  * Created by mind on 21/05/2016.
  */
 public class PlayState extends State{
-    private Texture bg;
+    private Texture bg,coin;
     private HealthBar hp;
     private Button swordBut,friendBut;
     private int stage;
-    private BitmapFont bitmapFont;
+    private BitmapFont bitmapFont,coinText;
     private MonsterFactory mons;
     private MonsterRenderer monsRenderer;
-    private Player player;
+    private static Player player;
     private TextDmgPool textDmgPool;
     private List<DpsTimer> dpsTimerList;
 
@@ -53,12 +52,17 @@ public class PlayState extends State{
         friend = new FriendMenuState(msm,player);
         list = new ListSkillMenuState(msm,player);
         msm.push(list);
+        coin = new Texture("coin.png");
         bg = new Texture("bg.png");
         swordBut = new SwordBut();
         friendBut = new FriendBut();
         stage = 1;
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(5.0f,5.0f);
+
+        coinText = new BitmapFont();
+        coinText.getData().setScale(4.0f,4.0f);
+
         textDmgPool = new TextDmgPool(player);
         dpsTimerList = new ArrayList<DpsTimer>();
 
@@ -155,6 +159,9 @@ public class PlayState extends State{
         hp.render(sb);
         textDmgPool.draw(bitmapFont, sb);
         msm.render(sb);
+        int size = (int)(TabTitan.WIDTH*0.05);
+        sb.draw(coin,hp.getX(),hp.getY()-size-(int)(size*0.2),size,size);
+        coinText.draw(sb,this.player.getMoney()+"",hp.getX()+size+(int)(size*0.2),hp.getY()-(int)(size*(1/4.0)));
         sb.end();
 
     }

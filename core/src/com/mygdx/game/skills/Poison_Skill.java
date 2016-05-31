@@ -8,7 +8,7 @@ import com.mygdx.game.sprites.Player;
 public class Poison_Skill implements SkillHero {
     private boolean check;
     private String name;
-    private int level;
+    private int level,price;
     private double dps;
 
     public Poison_Skill(){
@@ -16,6 +16,7 @@ public class Poison_Skill implements SkillHero {
         name = "Poison";
         this.level = 0;
         this.dps = 0.4;
+        price = 300;
     }
     @Override
     public void doAction(Player player) {
@@ -29,7 +30,13 @@ public class Poison_Skill implements SkillHero {
 
     @Override
     public void buySkill() {
-        this.check = true;
+
+        if(check)
+            upgrade();
+        if(!check) {
+            this.check = true;
+            levelUp();
+        }
     }
     @Override
     public String getName() {
@@ -37,13 +44,23 @@ public class Poison_Skill implements SkillHero {
     }
     @Override
     public String getText() {
-        return this.name+"\nLevel : "+this.level;
+        return this.name+"\nLevel : "+this.level+"\nPrice : "+this.price;
     }
 
     @Override
-    public void upLevel() {
+    public void levelUp() {
         dps += dps+0.1;
         level++;
+        price+=(int)(price*1.7);
+    }
+    public void upgrade() {
+        if(check) {
+            levelUp();
+        }
+    }
+    @Override
+    public int getPrice() {
+        return this.price;
     }
 
 }
