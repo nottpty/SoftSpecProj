@@ -9,15 +9,18 @@ public class Stone_Skill implements SkillHero {
     private int level;
     private boolean check = false;
     private String name;
+    private int damage;
+
     public Stone_Skill(){
         check = false;
         name = "Stone";
         this.level = 0;
+        this.damage = 150;
     }
 
     @Override
     public void doAction(Player player) {
-        player.setDmg(150);
+        player.setDmg(damage);
     }
 
     @Override
@@ -37,6 +40,12 @@ public class Stone_Skill implements SkillHero {
     @Override
     public String getText() {
         return this.name+"\nLevel : "+this.level;
+    }
+
+    @Override
+    public void upLevel() {
+        this.damage = (int)(damage*1.5);
+        level++;
     }
 
 }

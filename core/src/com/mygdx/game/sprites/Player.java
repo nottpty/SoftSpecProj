@@ -77,6 +77,10 @@ public class Player {
         skillHeros.get(index).buySkill();
     }
 
+    public void upLevelSkill(int index) {
+        skillHeros.get(index).upLevel();
+    }
+
     public void upDmg(){
         this.dmg = dmg+((int)(dmg*0.5));
     }

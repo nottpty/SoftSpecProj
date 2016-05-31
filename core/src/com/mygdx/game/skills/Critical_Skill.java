@@ -8,6 +8,7 @@ public class Critical_Skill implements SkillHero {
     private boolean check;
     private String name;
     private int level;
+    private int critical;
     public Critical_Skill(){
         check = false;
         this.name = "Critical";
@@ -16,7 +17,7 @@ public class Critical_Skill implements SkillHero {
 
     @Override
     public void doAction(Player player) {
-        player.setDmg(player.getDmg()*7);
+        player.setDmg(player.getDmg()*critical);
     }
 
     @Override
@@ -36,6 +37,12 @@ public class Critical_Skill implements SkillHero {
     @Override
     public String getText() {
         return this.name+"\nLevel : "+this.level;
+    }
+
+    @Override
+    public void upLevel() {
+        this.critical++;
+        level++;
     }
 
 
