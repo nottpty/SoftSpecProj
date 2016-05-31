@@ -26,7 +26,7 @@ public class Player {
         this.dmg = dmg;
         buildSkill();
         buildFriend();
-        money = 20000;
+        money = 0;
     }
 
     public void buildSkill(){
@@ -48,7 +48,7 @@ public class Player {
     public void minusMoney(int price){
         this.money = money-price;
     }
-    public void addMoney(int moeny){this.money+=money;}
+    public void addMoney(int money){ this.money += money; }
 
     public int getMoney(){return this.money;}
 

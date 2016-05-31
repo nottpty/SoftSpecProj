@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
+import sun.rmi.runtime.Log;
+
 /**
  * Created by mind on 21/05/2016.
  */
@@ -70,7 +72,7 @@ public class PlayState extends State{
         Texture a = new Texture("hpBG.png");
         Texture b = new Texture("hpFG.png");
 
-        hp = new HealthBar(a,b,mons.createMonster(stage%10).getHP());
+        hp = new HealthBar(a,b,mons.getMonster(stage % 10).getHP());
         monsRenderer = new MonsterRenderer(stage%10);
 
         boundSkill = new Rectangle(0,0,TabTitan.WIDTH/2,swordBut.getHeight());
@@ -104,11 +106,14 @@ public class PlayState extends State{
             }
         }
         if(hp.getHP()<=0){
+            player.addMoney(mons.getMonster(stage%10).getBounty());
             stage++;
+            int numMon = stage%10;
             if(stage % 10 == 1)
-                mons.rescaleHp(stage / 10 + 1);
-            hp.setHP(mons.createMonster(stage%10).getHP());
-            monsRenderer.setNumMon(stage%10);
+                mons.rescale(stage / 10 + 1);
+            System.out.println(player.getMoney());
+            hp.setHP(mons.getMonster(numMon).getHP());
+            monsRenderer.setNumMon(numMon);
         }
     }
 
@@ -161,7 +166,7 @@ public class PlayState extends State{
         msm.render(sb);
         int size = (int)(TabTitan.WIDTH*0.05);
         sb.draw(coin,hp.getX(),hp.getY()-size-(int)(size*0.2),size,size);
-        coinText.draw(sb,this.player.getMoney()+"",hp.getX()+size+(int)(size*0.2),hp.getY()-(int)(size*(1/4.0)));
+        coinText.draw(sb, this.player.getMoney() + "", hp.getX() + size + (int) (size * 0.2), hp.getY() - (int) (size * (1/4.0)));
         sb.end();
 
     }

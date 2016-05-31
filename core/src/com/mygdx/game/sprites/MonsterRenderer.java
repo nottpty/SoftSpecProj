@@ -20,6 +20,6 @@ public class MonsterRenderer {
         return this.numMon;
     }
     public void render(SpriteBatch batch){
-        mons.createMonster(numMon).render(batch);
+        mons.getMonster(numMon).render(batch);
     }
 }

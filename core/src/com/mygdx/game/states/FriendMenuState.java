@@ -123,15 +123,15 @@ public class FriendMenuState extends MenuState{
         for(int i = 0;i<6;i++){
             friendList.get(i).draw(sb);
             if(i<=2){
-                if(player.getSkillList().get(i).check()){
-                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                if(player.getFriendFactory().getFriend(i).check()){
+                    if(player.getMoney()>=player.getFriendFactory().getFriend(i).getPrice()){
                         sb.draw(upBut,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
                     }else {
                         sb.draw(upButN,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
                     }
 
                 }else{
-                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                    if(player.getMoney()>=player.getFriendFactory().getFriend(i).getPrice()){
                         sb.draw(buyBut,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
                     }else {
                         sb.draw(buyButN,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
@@ -143,14 +143,14 @@ public class FriendMenuState extends MenuState{
                         space+friendSize+space,
                         friendList.get(i).getY()+friendSize);
             }else{
-                if(player.getSkillList().get(i).check()){
-                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                if(player.getFriendFactory().getFriend(i).check()){
+                    if(player.getMoney()>=player.getFriendFactory().getFriend(i).getPrice()){
                         sb.draw(upBut,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
                     }else {
                         sb.draw(upButN,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
                     }
                 }else{
-                    if(player.getMoney()>=player.getSkillList().get(i).getPrice()){
+                    if(player.getMoney()>=player.getFriendFactory().getFriend(i).getPrice()){
                         sb.draw(buyBut,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
                     }else {
                         sb.draw(buyButN,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
