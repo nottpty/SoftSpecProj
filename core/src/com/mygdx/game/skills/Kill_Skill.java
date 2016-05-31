@@ -37,4 +37,9 @@ public class Kill_Skill implements SkillHero{
         return this.name+"\nLevel : "+this.level;
     }
 
+    @Override
+    public void upLevel() {
+
+    }
+
 }

@@ -10,6 +10,7 @@ public class Aragorn implements MyFriend {
 
     public Aragorn(){
         this.level = 0;
+        this.dmg = 0;
         this.check = false;
         this.name = "Aragorn";
     }
@@ -29,8 +30,25 @@ public class Aragorn implements MyFriend {
     }
 
     @Override
-    public void buySkill() {
+    public void bought() {
+        if(check)
+            upgrade();
+        if(!check) {
+            setDamage(100);
+            levelUp();
+        }
         this.check = true;
+    }
+
+    public void upgrade() {
+        if(check) {
+            levelUp();
+            this.setDamage(this.dmg + ((int) (dmg * 0.5)));
+        }
+    }
+    @Override
+    public void setDamage(int damage) {
+        this.dmg = damage;
     }
 
     @Override

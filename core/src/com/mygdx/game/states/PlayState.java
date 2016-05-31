@@ -19,6 +19,8 @@ import com.mygdx.game.sprites.MonsterRenderer;
 import com.mygdx.game.sprites.Player;
 import com.mygdx.game.sprites.SwordBut;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
 /**
@@ -34,7 +36,7 @@ public class PlayState extends State{
     private MonsterRenderer monsRenderer;
     private Player player;
     private TextDmgPool textDmgPool;
-    private FriendFactory friends;
+    private List<DpsTimer> dpsTimerList;
 
     private MenuState skill,friend,list;
     private MenuStateManager msm;
@@ -58,6 +60,7 @@ public class PlayState extends State{
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(5.0f,5.0f);
         textDmgPool = new TextDmgPool(player);
+        dpsTimerList = new ArrayList<DpsTimer>();
 
         mons = new MonsterFactory();
         Texture a = new Texture("hpBG.png");
@@ -65,14 +68,12 @@ public class PlayState extends State{
 
         hp = new HealthBar(a,b,mons.createMonster(stage%10).getHP());
         monsRenderer = new MonsterRenderer(stage%10);
-        friends = new FriendFactory();
-
-        friends.bought(1);
-        handleTask(friends.getFriend(1).getDmg());
 
         boundSkill = new Rectangle(0,0,TabTitan.WIDTH/2,swordBut.getHeight());
         boundFriend = new Rectangle(TabTitan.WIDTH/2,0,TabTitan.WIDTH/2,swordBut.getHeight());
         boundList = new Rectangle((int)(TabTitan.WIDTH*0.82),(int)(TabTitan.HEIGHT*0.38),(int)(TabTitan.WIDTH*0.18),(int)(TabTitan.WIDTH*0.07));
+
+        initFriendTask();
 
     }
 
@@ -107,10 +108,27 @@ public class PlayState extends State{
         }
     }
 
-    public void handleTask(int dps){
-        DpsTimer dpsTimer = new DpsTimer(dps,hp);
+    public int getDmg(int index){
+        return player.getFriendFactory().getFriend(index).getDamage();
+    }
+
+    public void initFriendTask(){
+        for(int i = 0;i < 6;i++){
+            dpsTimerList.add(new DpsTimer(getDmg(i),hp));
+            handleTask(dpsTimerList.get(i));
+        }
+    }
+
+    public void handleTask(DpsTimer dpsTimer){
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(dpsTimer,0,1000);
+    }
+
+    public void updateDps(){
+        for(int i = 0;i < 6;i++){
+            DpsTimer dpsTimer = dpsTimerList.get(i);
+            dpsTimer.setDps(getDmg(i));
+        }
     }
 
     @Override
@@ -118,6 +136,7 @@ public class PlayState extends State{
         textDmgPool.update(dt);
         handleInput();
         msm.update(dt);
+        updateDps();
     }
 
     @Override

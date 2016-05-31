@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.TabTitan;
+import com.mygdx.game.TimerTask.DpsTimer;
 import com.mygdx.game.sprites.Player;
 
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class FriendMenuState extends MenuState{
     private List<Sprite> friendList;
     int friendSize, bgWid, bgHeight, bgY, scale, space,persentMenu;
     private BitmapFont bitmapFont;
-    private Player player;
+    private List<DpsTimer> dpsTimerList;
+    private static Player player;
 
     public FriendMenuState(MenuStateManager msm,Player player){
         super(msm);
@@ -35,10 +37,12 @@ public class FriendMenuState extends MenuState{
         int persent = (int) (((TabTitan.WIDTH * 0.5) * 100) / but.getWidth());
 
         bitmapFont = new BitmapFont();
-        bitmapFont.getData().setScale(4.05f,4.0f);
+        bitmapFont.getData().setScale(4.05f, 4.0f);
 
         tbg = new Texture("menuBG.png");
         bg = new Sprite(tbg);
+
+        dpsTimerList = new ArrayList<DpsTimer>();
 
         persentMenu = (int) ((TabTitan.WIDTH * 100.0) / tbg.getWidth());
         bgY = (int) (but.getHeight() * (persent / 100.0));
@@ -71,21 +75,31 @@ public class FriendMenuState extends MenuState{
 
     }
 
+    public int getFriendDmg(int index){
+        return player.getFriendFactory().getFriend(index).getDamage();
+    }
+
+    public void buyFriend(int index){
+        player.getFriendFactory().getFriend(index).bought();
+    }
+
     @Override
     public void handleInput() {
-        Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        if(buyBounds.get(0).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(1).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(2).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(3).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(4).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
-        }else if(buyBounds.get(5).contains(touchPos.x,TabTitan.HEIGHT-touchPos.y)){
-
+        if(Gdx.input.justTouched()) {
+            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            if (buyBounds.get(0).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buyFriend(0);
+            } else if (buyBounds.get(1).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buyFriend(1);
+            } else if (buyBounds.get(2).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buyFriend(2);
+            } else if (buyBounds.get(3).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buyFriend(3);
+            } else if (buyBounds.get(4).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buyFriend(4);
+            } else if (buyBounds.get(5).contains(touchPos.x, TabTitan.HEIGHT - touchPos.y)) {
+                buyFriend(5);
+            }
         }
     }
 
@@ -101,12 +115,12 @@ public class FriendMenuState extends MenuState{
             friendList.get(i).draw(sb);
             if(i<=2){
                 sb.draw(buyBut,(TabTitan.WIDTH/2)-friendSize,friendList.get(i).getY(),friendSize,friendSize);
-                bitmapFont.draw(sb,player.getFriendList().get(i).getText(),
+                bitmapFont.draw(sb,player.getFriendFactory().getFriend(i).getText(),
                         space+friendSize+space,
                         friendList.get(i).getY()+friendSize);
             }else{
                 sb.draw(buyBut,TabTitan.WIDTH-friendSize-space,friendList.get(i).getY(),friendSize,friendSize);
-                bitmapFont.draw(sb,player.getFriendList().get(i).getText(),
+                bitmapFont.draw(sb,player.getFriendFactory().getFriend(i).getText(),
                         (TabTitan.WIDTH/2)+space+friendSize+space,
                         friendList.get(i).getY()+friendSize);
             }

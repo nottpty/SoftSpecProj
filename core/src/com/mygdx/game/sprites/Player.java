@@ -24,12 +24,12 @@ import java.util.List;
 public class Player {
     private int dmg;
     private List<SkillHero> skillHeros;
-    private List<MyFriend> friendList;
+    private FriendFactory friendFactory;
 
 
     public Player(int dmg){
         skillHeros = new ArrayList<SkillHero>();
-        friendList = new ArrayList<MyFriend>();
+        friendFactory = new FriendFactory();
         this.dmg = dmg;
         buildSkill();
         buildFriend();
@@ -46,13 +46,7 @@ public class Player {
 
     }
     public void buildFriend(){
-        friendList.add(new Saruman());
-        friendList.add(new Frodo());
-        friendList.add(new Gandalf());
-        friendList.add(new Aragorn());
-        friendList.add(new Gimli());
-        friendList.add(new Legolas());
-
+        friendFactory.initList();
     }
     public int getDmg(){
         return dmg;
@@ -67,7 +61,10 @@ public class Player {
     }
 
     public List<SkillHero> getSkillList(){return this.skillHeros;};
-    public List<MyFriend> getFriendList(){return this.friendList;};
+
+    public FriendFactory getFriendFactory(){
+        return this.friendFactory;
+    }
 
     public boolean checkSkill(int index){
         return skillHeros.get(index).check();

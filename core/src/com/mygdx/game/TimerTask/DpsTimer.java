@@ -20,4 +20,8 @@ public class DpsTimer extends TimerTask {
     public void run(){
         hp.minusHP(dps);
     }
+
+    public void setDps(int dps){
+        this.dps = dps;
+    }
 }

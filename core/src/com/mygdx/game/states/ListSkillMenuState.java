@@ -14,6 +14,7 @@ public class ListSkillMenuState extends MenuState {
     private int space,butSize;
     private Sprite doubleD,critical,stone,poison,frost,kill;
     private Rectangle boundDoubleD,boundCritical,boundStone,boundPoison,boundFrost,boundKill;
+    private static Player player;
     public ListSkillMenuState(MenuStateManager msm,Player player){
         super(msm);
 
@@ -23,6 +24,7 @@ public class ListSkillMenuState extends MenuState {
 
         space = (int)(TabTitan.WIDTH*0.05);
         butSize = (int)(int)(TabTitan.WIDTH*0.11);
+        this.player = player;
 
         doubleD = new Sprite(new Texture("skill1N.png"));
         critical = new Sprite(new Texture("skill2N.png"));

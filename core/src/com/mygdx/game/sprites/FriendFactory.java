@@ -1,5 +1,13 @@
 package com.mygdx.game.sprites;
 
+import com.mygdx.game.friends.Aragorn;
+import com.mygdx.game.friends.Frodo;
+import com.mygdx.game.friends.Gandalf;
+import com.mygdx.game.friends.Gimli;
+import com.mygdx.game.friends.Legolas;
+import com.mygdx.game.friends.MyFriend;
+import com.mygdx.game.friends.Saruman;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,26 +16,28 @@ import java.util.List;
  */
 public class FriendFactory {
 
-    List<Friend> friendList;
+    List<MyFriend> friendList;
 
     public FriendFactory(){
-        friendList = new ArrayList<Friend>();
+        friendList = new ArrayList<MyFriend>();
         initList();
     }
 
     public void initList(){
-        for(int i = 0;i <= 5;i++){
-            Friend friend = new Friend(i+1);
-            friendList.add(friend);
-        }
+        friendList.add(new Saruman());
+        friendList.add(new Frodo());
+        friendList.add(new Gandalf());
+        friendList.add(new Aragorn());
+        friendList.add(new Gimli());
+        friendList.add(new Legolas());
     }
 
-    public Friend getFriend(int index){
+    public MyFriend getFriend(int index){
         return friendList.get(index);
     }
 
     public void upgrade(int index,int dmg){
-        friendList.get(index).setDmg(dmg);
+        friendList.get(index).setDamage(dmg);
     }
 
     public void bought(int index){

@@ -23,7 +23,7 @@ public class SkillMenuState extends MenuState {
     private List<Sprite> skillList;
     int skillSize, bgWid, bgHeight, bgY, scale, space,persentMenu;
     private BitmapFont bitmapFont;
-    private Player player;
+    private static Player player;
     public SkillMenuState(MenuStateManager msm,Player player) {
         super(msm);
         skillList = new ArrayList<Sprite>();

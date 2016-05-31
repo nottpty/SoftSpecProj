@@ -5,7 +5,7 @@ import com.mygdx.game.sprites.Player;
 /**
  * Created by SAS-Maxnot19 on 28/5/2559.
  */
-public class DoubleDamage_Skill implements com.mygdx.game.skills.SkillHero {
+public class DoubleDamage_Skill implements SkillHero {
     private boolean check;
     private int level;
     private String name;
@@ -37,6 +37,11 @@ public class DoubleDamage_Skill implements com.mygdx.game.skills.SkillHero {
     @Override
     public String getText() {
         return this.name+"\nLevel : "+this.level;
+    }
+
+    @Override
+    public void upLevel() {
+
     }
 
 }

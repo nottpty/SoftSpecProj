@@ -7,7 +7,9 @@ public interface MyFriend {
     public int getDamage();
     public void levelUp();
     public boolean check();
-    public void buySkill();
+    public void bought();
+    public void upgrade();
+    public void setDamage(int damage);
     public String getName();
     public String getText();
 }
