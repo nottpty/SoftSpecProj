@@ -2,9 +2,11 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Effect.TextDmgPool;
@@ -21,8 +23,6 @@ import com.mygdx.game.sprites.SwordBut;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-
-import sun.rmi.runtime.Log;
 
 /**
  * Created by mind on 21/05/2016.
@@ -43,6 +43,9 @@ public class PlayState extends State{
     private MenuStateManager msm;
     private Rectangle boundSkill,boundFriend,boundList;
     private boolean menuShow;
+    private float elapsedTime;
+    private List<Animation> animationList;
+    Animation currentAnimation;
     Sprite m;
     public PlayState(GameStateManager gsm) {
 
@@ -78,6 +81,20 @@ public class PlayState extends State{
         boundSkill = new Rectangle(0,0,TabTitan.WIDTH/2,swordBut.getHeight());
         boundFriend = new Rectangle(TabTitan.WIDTH/2,0,TabTitan.WIDTH/2,swordBut.getHeight());
         boundList = new Rectangle((int)(TabTitan.WIDTH*0.82),(int)(TabTitan.HEIGHT*0.38),(int)(TabTitan.WIDTH*0.18),(int)(TabTitan.WIDTH*0.07));
+        animationList = new ArrayList<Animation>();
+
+        for(int i = 0;i<6;i++){
+            Texture friendA = new Texture("friend"+(i+1)+"-2.png");
+            TextureRegion[][] tmpFrames = TextureRegion.split(friendA,130,155);
+            TextureRegion[] animationFrames = new TextureRegion[2];
+            int index =0;
+            for(int j = 0;j<2;j++){
+                animationFrames[index++] = tmpFrames[0][j];
+            }
+            animationList.add(new Animation(1f/2f,animationFrames));
+        }
+
+
 
         initFriendTask();
 
@@ -102,7 +119,6 @@ public class PlayState extends State{
             }else{
                 hp.minusHP(player.getDmg());
                 textDmgPool.showTextDmg();
-                System.out.println("kill : "+player.getSkillList().get(5).getName());
             }
         }
         if(hp.getHP()<=0){
@@ -167,6 +183,15 @@ public class PlayState extends State{
         int size = (int)(TabTitan.WIDTH*0.05);
         sb.draw(coin,hp.getX(),hp.getY()-size-(int)(size*0.2),size,size);
         coinText.draw(sb, this.player.getMoney() + "", hp.getX() + size + (int) (size * 0.2), hp.getY() - (int) (size * (1/4.0)));
+        elapsedTime+= Gdx.graphics.getDeltaTime();
+
+        for(int i = 0;i<6;i++){
+            if(player.getFriendFactory().getFriend(i).check()) {
+                sb.draw(animationList.get(i).getKeyFrame(elapsedTime, true), 0 + (int) (TabTitan.WIDTH * 0.17) * i, (int) (TabTitan.HEIGHT * 0.4),
+                        (int) (TabTitan.WIDTH * 0.15), (int) (TabTitan.WIDTH * 0.15));
+            }
+        }
+
         sb.end();
 
     }

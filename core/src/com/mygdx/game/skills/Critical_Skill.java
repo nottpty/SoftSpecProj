@@ -1,7 +1,5 @@
 package com.mygdx.game.skills;
 
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.sprites.Player;
 /**
  * Created by SAS-Maxnot19 on 28/5/2559.
@@ -19,7 +17,7 @@ public class Critical_Skill implements SkillHero {
         this.player = player;
         this.name = "Critical";
         this.level = 0;
-        price = 400;
+        price = 10;
         critical = 7;
         duration = 0;
     }
@@ -69,6 +67,10 @@ public class Critical_Skill implements SkillHero {
         }
     }
 
+    public boolean canUse(){
+        return canUse;
+    }
+
     @Override
     public int getPrice() {
         return this.price;
@@ -76,8 +78,9 @@ public class Critical_Skill implements SkillHero {
 
     public void update(float dt){
         duration += dt;
-        System.out.print(duration);
+        System.out.println(duration);
         if(duration >= 10){
+            System.out.println("stop");
             duration = 0;
             player.setDmg(player.getNormalDamage());
             canUse = true;

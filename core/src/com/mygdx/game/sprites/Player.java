@@ -2,11 +2,7 @@ package com.mygdx.game.sprites;
 
 import com.mygdx.game.skills.Critical_Skill;
 import com.mygdx.game.skills.DoubleDamage_Skill;
-import com.mygdx.game.skills.Frost_Skill;
-import com.mygdx.game.skills.Kill_Skill;
-import com.mygdx.game.skills.Poison_Skill;
 import com.mygdx.game.skills.SkillHero;
-import com.mygdx.game.skills.Stone_Skill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +15,7 @@ public class Player {
     private List<SkillHero> skillHeros;
     private FriendFactory friendFactory;
     private int normalDamage;
+    private int upgradeCost,level;
 
 
     public Player(int dmg){
@@ -29,15 +26,13 @@ public class Player {
         buildFriend();
         money = 0;
         normalDamage = dmg;
+        upgradeCost = 10;
+        level = 1;
     }
 
     public void buildSkill(){
         skillHeros.add(new DoubleDamage_Skill(this));
         skillHeros.add(new Critical_Skill(this));
-        skillHeros.add(new Stone_Skill(this));
-        skillHeros.add(new Poison_Skill(this));
-        skillHeros.add(new Frost_Skill(this));
-        skillHeros.add(new Kill_Skill(this));
 
     }
     public void buildFriend(){
@@ -84,14 +79,21 @@ public class Player {
     }
 
     public void upDmg(){
-        this.dmg = dmg+((int)(dmg*0.5));
-        this.normalDamage = dmg;
+        if(money >= upgradeCost) {
+            this.dmg = dmg + ((int) (dmg * 0.5));
+            this.normalDamage = dmg;
+            level++;
+            money -= upgradeCost;
+            upgradeCost += level*10;
+        }
     }
 
-    public void updateSkillList(float dt){
-        for(SkillHero skill : skillHeros){
-            skill.update(dt);
-        }
+    public int getLevel(){
+        return level;
+    }
+    public int getPrice(){return this.upgradeCost;}
+    public void updateSkill(int index,float dt){
+        skillHeros.get(index).update(dt);
     }
 
 }

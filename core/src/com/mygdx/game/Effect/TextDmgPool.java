@@ -7,8 +7,6 @@ import com.mygdx.game.sprites.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.soap.Text;
-
 /**
  * Created by tannatanon on 5/28/2016 AD.
  */
@@ -40,6 +38,7 @@ public class TextDmgPool extends AbstractText{
 
     public void update(float dt){
         for(TextDmg textDmg : textDmgList){
+            textDmg.setText(player.getDmg()+"");
             textDmg.update(dt);
         }
     }
