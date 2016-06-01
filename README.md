@@ -11,9 +11,9 @@ Patinya Yongyai 5710547204
 
 ### 1. Project explanation ###
 
-    This project is the idle clicker game which you play as the swordmaster whose object is to kill the monsters
-by click at them. When a monster die you got a gold. Gold use for upgrade your sword for a better damage , buy skills
-for easier game play (Like double damage or critical) and hire a friends to help you fight with the monster (friend is auto attacking).
+        This project is the idle clicker game which you play as the swordmaster whose object is to kill the monsters
+    by click at them. When a monster die you got a gold. Gold use for upgrade your sword for a better damage , buy skills
+    for easier game play (Like double damage or critical) and hire a friends to help you fight with the monster (friend is auto attacking).
 
 ### 2. Design Pattern ###
 
