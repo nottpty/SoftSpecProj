@@ -1,20 +1,21 @@
-Lord of the click
+# Lord of the click #
 
-Member
+### Member ###
 
 Natanon Poonawagul 5710546208  
 Natcha Pongsupanee 5710546224
-Patinya Yongyai 57105467204
 
-Use resolution as Genymotion Samsung Galaxy S6 6.0.0
+Patinya Yongyai 5710547204
 
-1 Project explanation
+### Use resolution as Genymotion Samsung Galaxy S6 6.0.0 
+
+### 1. Project explanation ###
 
     This project is the idle clicker game which you play as the swordmaster whose object is to kill the monsters
 by click at them. When a monster die you got a gold. Gold use for upgrade your sword for a better damage , buy skills
 for easier game play (Like double damage or critical) and hire a friends to help you fight with the monster (friend is auto attacking).
 
-2 Design Pattern
+### 2. Design Pattern ###
 
 2.1) Factory Pattern
     - MonsterFactory
@@ -52,7 +53,7 @@ for easier game play (Like double damage or critical) and hire a friends to help
     
     These classes implements the MyFriend interface and use the same method when use in other classes.
     
-3. Design Principle
+### 3. Design Principle ###
 
     GRASP
         Creator : 
