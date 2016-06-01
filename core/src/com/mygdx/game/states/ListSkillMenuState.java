@@ -1,11 +1,15 @@
 package com.mygdx.game.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.TabTitan;
 import com.mygdx.game.sprites.Player;
+
+import sun.rmi.runtime.Log;
 
 /**
  * Created by mind on 28/05/2016.
@@ -64,12 +68,29 @@ public class ListSkillMenuState extends MenuState {
 
     @Override
     public void handleInput() {
-
+        if(Gdx.input.justTouched()) {
+            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            if (boundDoubleD.contains(touchPos.x, TabTitan.HEIGHT - touchPos.y) && checkStatus(player,0)) {
+                player.getSkillList().get(0).doAction(player);
+            } else if (boundCritical.contains(touchPos.x, TabTitan.HEIGHT - touchPos.y) && checkStatus(player,1)) {
+                player.getSkillList().get(1).doAction(player);
+                System.out.print(player.getDmg());
+            } else if (boundStone.contains(touchPos.x, TabTitan.HEIGHT - touchPos.y) && checkStatus(player,2)) {
+                player.getSkillList().get(2).doAction(player);
+            } else if (boundPoison.contains(touchPos.x, TabTitan.HEIGHT - touchPos.y) && checkStatus(player,3)) {
+                player.getSkillList().get(3).doAction(player);
+            } else if (boundFrost.contains(touchPos.x, TabTitan.HEIGHT - touchPos.y) && checkStatus(player,4)) {
+                player.getSkillList().get(4).doAction(player);
+            } else if (boundKill.contains(touchPos.x, TabTitan.HEIGHT - touchPos.y) && checkStatus(player,5)) {
+                player.getSkillList().get(5).doAction(player);
+            }
+        }
     }
 
     @Override
     public void update(float dt) {
-
+        player.updateSkillList(dt);
+        handleInput();
     }
 
     @Override
@@ -87,5 +108,9 @@ public class ListSkillMenuState extends MenuState {
     @Override
     public void dispose() {
 
+    }
+
+    public boolean checkStatus(Player player,int index){
+        return player.getSkillList().get(index).check();
     }
 }

@@ -15,5 +15,6 @@ public interface SkillHero {
     public void levelUp();
     public void upgrade();
     public int getPrice();
+    public void update(float dt);
 
 }

@@ -6,18 +6,26 @@ import com.mygdx.game.sprites.Player;
  * Created by mind on 30/05/2016.
  */
 public class Kill_Skill implements SkillHero{
-    private boolean check;
+    private boolean check,canUse;
     private String name;
     private int level,price;
-    public Kill_Skill(){
+    private Player player;
+    private final int DAMAGE = 999999999;
+    private float duration;
+
+    public Kill_Skill(Player player){
         this.check = false;
+        this.player = player;
         this.name = "Kill";
         this.level = 0;
         price = 500;
     }
     @Override
     public void doAction(Player player) {
-
+        if(canUse){
+            player.setDmg(DAMAGE);
+            canUse = false;
+        }
     }
 
     @Override
@@ -56,5 +64,16 @@ public class Kill_Skill implements SkillHero{
     @Override
     public int getPrice() {
         return this.price;
+    }
+
+    @Override
+    public void update(float dt) {
+        duration += dt;
+        System.out.print(duration);
+        if(duration >= 2){
+            duration = 0;
+            player.setDmg(player.getNormalDamage());
+            canUse = true;
+        }
     }
 }

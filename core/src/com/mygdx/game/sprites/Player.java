@@ -18,6 +18,7 @@ public class Player {
     private int dmg,money;
     private List<SkillHero> skillHeros;
     private FriendFactory friendFactory;
+    private int normalDamage;
 
 
     public Player(int dmg){
@@ -27,16 +28,16 @@ public class Player {
         buildSkill();
         buildFriend();
         money = 0;
+        normalDamage = dmg;
     }
 
     public void buildSkill(){
-        skillHeros.add(new DoubleDamage_Skill());
-        skillHeros.add(new Critical_Skill());
-        skillHeros.add(new Stone_Skill());
-        skillHeros.add(new Poison_Skill());
-        skillHeros.add(new Frost_Skill());
-        skillHeros.add(new Kill_Skill());
-        skillHeros.add(new Kill_Skill());
+        skillHeros.add(new DoubleDamage_Skill(this));
+        skillHeros.add(new Critical_Skill(this));
+        skillHeros.add(new Stone_Skill(this));
+        skillHeros.add(new Poison_Skill(this));
+        skillHeros.add(new Frost_Skill(this));
+        skillHeros.add(new Kill_Skill(this));
 
     }
     public void buildFriend(){
@@ -51,6 +52,10 @@ public class Player {
     public void addMoney(int money){ this.money += money; }
 
     public int getMoney(){return this.money;}
+
+    public int getNormalDamage(){
+        return normalDamage;
+    }
 
     public void setDmg(int dmg) { this.dmg = dmg; }
 
@@ -80,6 +85,13 @@ public class Player {
 
     public void upDmg(){
         this.dmg = dmg+((int)(dmg*0.5));
+        this.normalDamage = dmg;
+    }
+
+    public void updateSkillList(float dt){
+        for(SkillHero skill : skillHeros){
+            skill.update(dt);
+        }
     }
 
 }

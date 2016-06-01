@@ -7,12 +7,15 @@ import com.mygdx.game.sprites.*;
  */
 public class Stone_Skill implements SkillHero {
     private int level,price;
-    private boolean check = false;
+    private boolean check,canUse;
     private String name;
     private int damage;
+    private Player player;
+    private float duration;
 
-    public Stone_Skill(){
+    public Stone_Skill(Player player){
         check = false;
+        this.player = player;
         name = "Stone";
         this.level = 0;
         this.damage = 150;
@@ -21,7 +24,10 @@ public class Stone_Skill implements SkillHero {
 
     @Override
     public void doAction(Player player) {
-        player.setDmg(damage);
+        if(canUse){
+            player.setDmg(damage);
+            canUse = false;
+        }
     }
 
     @Override
@@ -64,5 +70,16 @@ public class Stone_Skill implements SkillHero {
     @Override
     public int getPrice() {
         return this.price;
+    }
+
+    @Override
+    public void update(float dt) {
+        duration += dt;
+        System.out.print(duration);
+        if(duration >= 2){
+            duration = 0;
+            player.setDmg(player.getNormalDamage());
+            canUse = true;
+        }
     }
 }

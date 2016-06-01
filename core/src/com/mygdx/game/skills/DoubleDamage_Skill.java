@@ -6,15 +6,20 @@ import com.mygdx.game.sprites.Player;
  * Created by SAS-Maxnot19 on 28/5/2559.
  */
 public class DoubleDamage_Skill implements SkillHero {
-    private boolean check;
+    private boolean check,canUse;
     private int level,price;
     private String name;
+    private Player player;
+    private float duration;
 
-    public DoubleDamage_Skill(){
+    public DoubleDamage_Skill(Player player){
+        canUse = true;
         check = false;
+        this.player = player;
         name = "x2 Damage";
         this.level = 0;
         price = 200;
+        duration = 0;
     }
 
     @Override
@@ -59,6 +64,16 @@ public class DoubleDamage_Skill implements SkillHero {
     @Override
     public int getPrice() {
         return this.price;
+    }
+
+    public void update(float dt){
+        duration += dt;
+        System.out.print(duration);
+        if(duration >= 10){
+            duration = 0;
+            player.setDmg(player.getNormalDamage());
+            canUse = true;
+        }
     }
 
 }

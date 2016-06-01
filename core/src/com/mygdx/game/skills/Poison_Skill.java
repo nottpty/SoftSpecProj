@@ -6,13 +6,16 @@ import com.mygdx.game.sprites.Player;
  * Created by SAS-Maxnot19 on 28/5/2559.
  */
 public class Poison_Skill implements SkillHero {
-    private boolean check;
+    private boolean check,canUse;
     private String name;
     private int level,price;
     private double dps;
+    private Player player;
+    private float duration;
 
-    public Poison_Skill(){
+    public Poison_Skill(Player player){
         check = false;
+        this.player = player;
         name = "Poison";
         this.level = 0;
         this.dps = 0.4;
@@ -20,7 +23,10 @@ public class Poison_Skill implements SkillHero {
     }
     @Override
     public void doAction(Player player) {
-        player.setDmg(player.getDmg()+((int)(player.getDmg()*dps)));
+        if(canUse){
+            player.setDmg(player.getDmg()+((int)(player.getDmg()*dps)));
+            canUse = false;
+        }
     }
 
     @Override
@@ -61,6 +67,16 @@ public class Poison_Skill implements SkillHero {
     @Override
     public int getPrice() {
         return this.price;
+    }
+
+    public void update(float dt){
+        duration += dt;
+        System.out.print(duration);
+        if(duration >= 15){
+            duration = 0;
+            player.setDmg(player.getNormalDamage());
+            canUse = true;
+        }
     }
 
 }
