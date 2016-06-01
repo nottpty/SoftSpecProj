@@ -13,7 +13,7 @@ public class Aragorn implements MyFriend {
         this.dmg = 0;
         this.check = false;
         this.name = "Aragorn";
-        this.price = 400;
+        this.price = 2000;
     }
     @Override
     public int getPrice(){
@@ -27,7 +27,7 @@ public class Aragorn implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
-        price += (int)(price*1.7);
+        price += (int)(level*10+price*0.75);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Aragorn implements MyFriend {
         if(check)
             upgrade();
         if(!check) {
-            setDamage(100);
+            setDamage(500);
             levelUp();
         }
         this.check = true;
@@ -49,7 +49,7 @@ public class Aragorn implements MyFriend {
     public void upgrade() {
         if(check) {
             levelUp();
-            this.setDamage(this.dmg + ((int) (dmg * 0.5)));
+            this.setDamage(this.dmg + ((int) (dmg * 0.5)) + (level * 9));
         }
     }
     @Override

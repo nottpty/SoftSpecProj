@@ -28,7 +28,7 @@ public class Frodo implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
-        price += (int)(price*1.7);
+        price += (int)(level*10+price*0.35);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Frodo implements MyFriend {
     public void upgrade() {
         if(check) {
             levelUp();
-            this.setDamage(this.dmg + ((int) (dmg * 0.5)));
+            this.setDamage(this.dmg + ((int) (dmg * 0.5) + (level * 5)));
         }
     }
 
@@ -52,7 +52,7 @@ public class Frodo implements MyFriend {
         if(check)
             upgrade();
         if(!check) {
-            setDamage(20);
+            setDamage(60);
             levelUp();
         }
         this.check = true;

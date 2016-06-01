@@ -14,7 +14,7 @@ public class Gandalf implements MyFriend {
         this.dmg = 0;
         this.check = false;
         this.name = "Gandalf";
-        this.price = 300;
+        this.price = 500;
     }
     @Override
     public int getDamage() {
@@ -24,7 +24,7 @@ public class Gandalf implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
-        price += (int)(price*1.7);
+        price += (int)(level*10+price*0.55);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Gandalf implements MyFriend {
     public void upgrade() {
         if(check) {
             levelUp();
-            this.setDamage(this.dmg + ((int) (dmg * 0.5)));
+            this.setDamage(this.dmg + ((int) (dmg * 0.5)) + (level * 7));
         }
     }
     @Override
@@ -51,7 +51,7 @@ public class Gandalf implements MyFriend {
         if(check)
             upgrade();
         if(!check) {
-            setDamage(50);
+            setDamage(150);
             levelUp();
         }
         this.check = true;

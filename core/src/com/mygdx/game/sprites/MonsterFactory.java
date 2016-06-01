@@ -23,15 +23,15 @@ public class MonsterFactory {
                 hpScale = 10;
                 moneyScale = 10;
             }
-            Monsters monster = new Monsters(i,50*hpScale,moneyScale*10);
+            Monsters monster = new Monsters(i,25*hpScale,moneyScale*4);
             monstersList.add(monster);
         }
     }
 
     public void rescale(int scale){
         for(Monsters monster : monstersList){
-            monster.setHP(monster.getHP()+(200*scale));
-            monster.setBounty(monster.getBounty()+(40*scale));
+            monster.setHP((int)(monster.getHP()+(300*scale*1.65)));
+            monster.setBounty((int)(monster.getBounty()+(40*scale*1.25)));
         }
     }
 

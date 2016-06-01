@@ -13,7 +13,7 @@ public class Saruman implements MyFriend {
         this.dmg = 0;
         this.check = false;
         this.name = "Saruman";
-        this.price = 100;
+        this.price = 50;
     }
     @Override
     public int getDamage() {
@@ -23,7 +23,7 @@ public class Saruman implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
-        price += (int)(price*1.7);
+        price += (int)(level*10+price*0.15);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Saruman implements MyFriend {
     public void upgrade() {
         if(check) {
             levelUp();
-            this.setDamage(this.dmg + ((int) (dmg * 0.5)));
+            this.setDamage(this.dmg + ((int) (dmg * 0.5)) + (level * 3) );
         }
     }
 
@@ -47,7 +47,7 @@ public class Saruman implements MyFriend {
         if(check)
             upgrade();
         if(!check) {
-            setDamage(5);
+            setDamage(15);
             levelUp();
         }
         this.check = true;

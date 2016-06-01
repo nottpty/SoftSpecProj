@@ -17,7 +17,7 @@ public class Critical_Skill implements SkillHero {
         this.player = player;
         this.name = "Critical";
         this.level = 0;
-        price = 10;
+        price = 1000;
         critical = 7;
         duration = 0;
     }
@@ -58,7 +58,7 @@ public class Critical_Skill implements SkillHero {
     @Override
     public void levelUp() {
         this.critical++;
-        price += (int)(price*1.7);
+        price += (int)(price*1.4);
         level++;
     }
     public void upgrade() {
@@ -81,10 +81,15 @@ public class Critical_Skill implements SkillHero {
         System.out.println(duration);
         if(duration >= 10){
             System.out.println("stop");
-            duration = 0;
             player.setDmg(player.getNormalDamage());
-            canUse = true;
+            checkCooldown();
         }
     }
 
+    public void checkCooldown(){
+        if(duration >= 100) {
+            duration = 0;
+            canUse = true;
+        }
+    }
 }

@@ -13,7 +13,7 @@ public class Legolas implements MyFriend {
         this.dmg = 0;
         this.check = false;
         this.name = "Legolas";
-        this.price = 600;
+        this.price = 70000;
     }
     @Override
     public int getDamage() {
@@ -23,7 +23,7 @@ public class Legolas implements MyFriend {
     @Override
     public void levelUp() {
         this.level++;
-        price += (int)(price*1.7);
+        price += (int)(level*10+price);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Legolas implements MyFriend {
     public void upgrade() {
         if(check) {
             levelUp();
-            this.setDamage(this.dmg + ((int) (dmg * 0.5)));
+            this.setDamage(this.dmg + ((int) (dmg * 0.5)) + (level * 15));
         }
     }
 
@@ -47,7 +47,7 @@ public class Legolas implements MyFriend {
         if(check)
             upgrade();
         if(!check) {
-            setDamage(1000);
+            setDamage(4900);
             levelUp();
         }
         this.check = true;

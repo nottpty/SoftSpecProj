@@ -80,11 +80,11 @@ public class Player {
 
     public void upDmg(){
         if(money >= upgradeCost) {
-            this.dmg = dmg + ((int) (dmg * 0.5));
+            this.dmg = (int)(dmg*1.25 + (level*1.5));
             this.normalDamage = dmg;
             level++;
             money -= upgradeCost;
-            upgradeCost += level*10;
+            upgradeCost += level*10+(upgradeCost*0.2);
         }
     }
 

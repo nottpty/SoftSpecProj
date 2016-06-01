@@ -91,13 +91,13 @@ public class ListSkillMenuState extends MenuState {
     public void render(SpriteBatch sb) {
 
         for(int i = 0;i<2;i++){
-            if(player.getSkillList().get(i).check()){
+            if(player.getSkillList().get(i).canUse() && player.getSkillList().get(i).check()){
                 skillList.get(i).draw(sb);
             }else{
                 skillNList.get(i).draw(sb);
             }
         }
-        bitmapFont.draw(sb, "Level : "+player.getLevel()+"\nDamage : "+player.getDmg(),
+        bitmapFont.draw(sb, "Level : "+player.getLevel()+"\nDamage : "+player.getNormalDamage(),
                 profile.getX(),
                 profile.getY()+profile.getHeight()+space*2);
         profile.draw(sb);

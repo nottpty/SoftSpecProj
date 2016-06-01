@@ -11,6 +11,7 @@ public class DoubleDamage_Skill implements SkillHero {
     private String name;
     private Player player;
     private float duration;
+    private int cooldown;
 
     public DoubleDamage_Skill(Player player){
         canUse = true;
@@ -18,8 +19,9 @@ public class DoubleDamage_Skill implements SkillHero {
         this.player = player;
         name = "x2 Damage";
         this.level = 0;
-        price = 200;
+        price = 400;
         duration = 0;
+        cooldown = 90;
     }
 
     @Override
@@ -54,7 +56,8 @@ public class DoubleDamage_Skill implements SkillHero {
     @Override
     public void levelUp() {
         level++;
-        price += (int)(price*1.7);
+        cooldown -= 5;
+        price += (int)(price*1.2);
     }
     public void upgrade() {
         if(check) {
@@ -75,10 +78,15 @@ public class DoubleDamage_Skill implements SkillHero {
         duration += dt;
 
         if(duration >= 10){
-            duration = 0;
             player.setDmg(player.getNormalDamage());
-            canUse = true;
+            checkCooldown();
         }
     }
 
+    public void checkCooldown(){
+        if(duration >= cooldown) {
+            duration = 0;
+            canUse = true;
+        }
+    }
 }

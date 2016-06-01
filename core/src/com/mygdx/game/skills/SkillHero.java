@@ -17,5 +17,6 @@ public interface SkillHero {
     public int getPrice();
     public boolean canUse();
     public void update(float dt);
+    public void checkCooldown();
 
 }

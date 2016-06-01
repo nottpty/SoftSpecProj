@@ -51,7 +51,7 @@ public class PlayState extends State{
 
         super(gsm);
         menuShow = false;
-        player = new Player(10);
+        player = new Player(5);
         msm = new MenuStateManager();
         skill = new SkillMenuState(msm,player);
         friend = new FriendMenuState(msm,player);
