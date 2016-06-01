@@ -16,7 +16,6 @@ public class TabTitan extends ApplicationAdapter {
 	private SpriteBatch batch;
 	Music music;
 	Texture img;
-
 	
 	@Override
 	public void create () {
