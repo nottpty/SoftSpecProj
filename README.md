@@ -17,41 +17,41 @@ Patinya Yongyai 5710547204
 
 ### 2. Design Pattern ###
 
-2.1) Factory Pattern
-    - MonsterFactory
-    - FriendFactory
+    2.1) Factory Pattern
+        - MonsterFactory
+        - FriendFactory
     
-    Use index for create a monster or friend instead of call its classes itself.
+        Use index for create a monster or friend instead of call its classes itself.
     
-2.2) Strategy Pattern
-    - SkillHero
-    - DoubleDamage_Skill
-    - Critical_Skill
+    2.2) Strategy Pattern
+        - SkillHero
+        - DoubleDamage_Skill
+        - Critical_Skill
     
-    A SkillHero interface use to represent those 2 concrete class that do similar thing.
+        A SkillHero interface use to represent those 2 concrete class that do similar thing.
     
-2.3) State Pattern
-    - PlayState
-    - SkillMenuState
-    - FriendMenuState
-    - ListSkillMenuState
-    - MenuState
+    2.3) State Pattern
+        - PlayState
+        - SkillMenuState
+        - FriendMenuState
+        - ListSkillMenuState
+        - MenuState
     
-    A State for swaping menu bar etc.
+        A State for swaping menu bar etc.
     
-2.4) Observer Pattern
-    - PlayState
-    - SkillHero
-    - TextDmg
-    - TextDmgPool
+    2.4) Observer Pattern
+        - PlayState
+        - SkillHero
+        - TextDmg
+        - TextDmgPool
     
-    These classes update in the playstate for real time update in game.
+        These classes update in the playstate for real time update in game.
     
-2.5) Flyweight Pattern
-    - MyFriend
-    - All classes in package friends
+    2.5) Flyweight Pattern
+        - MyFriend
+        - All classes in package friends
     
-    These classes implements the MyFriend interface and use the same method when use in other classes.
+        These classes implements the MyFriend interface and use the same method when use in other classes.
     
 ### 3. Design Principle ###
 
