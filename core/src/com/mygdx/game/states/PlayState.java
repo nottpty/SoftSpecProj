@@ -1,6 +1,7 @@
 package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -44,6 +45,7 @@ public class PlayState extends State{
     private Rectangle boundSkill,boundFriend,boundList;
     private boolean menuShow;
     private float elapsedTime;
+    private Sound sword;
     private List<Animation> animationList;
     Animation currentAnimation;
     Sprite m;
@@ -51,6 +53,7 @@ public class PlayState extends State{
 
         super(gsm);
         menuShow = false;
+        sword = Gdx.audio.newSound(Gdx.files.internal("swordSound.mp3"));
         player = new Player(5);
         msm = new MenuStateManager();
         skill = new SkillMenuState(msm,player);
@@ -117,6 +120,7 @@ public class PlayState extends State{
                 msm.set(friend);
                 menuShow = true;
             }else{
+                sword.play();
                 hp.minusHP(player.getDmg());
                 textDmgPool.showTextDmg();
             }
