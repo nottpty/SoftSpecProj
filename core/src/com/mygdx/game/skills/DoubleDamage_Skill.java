@@ -26,8 +26,10 @@ public class DoubleDamage_Skill implements SkillHero {
 
     @Override
     public void doAction(Player player) {
-        if(canUse)
-            player.setDmg(player.getDmg()*2);
+        if(canUse) {
+            player.setDmg(player.getDmg() * 2);
+            canUse = false;
+        }
     }
 
     @Override
@@ -76,7 +78,6 @@ public class DoubleDamage_Skill implements SkillHero {
 
     public void update(float dt){
         duration += dt;
-
         if(duration >= 10){
             player.setDmg(player.getNormalDamage());
             checkCooldown();

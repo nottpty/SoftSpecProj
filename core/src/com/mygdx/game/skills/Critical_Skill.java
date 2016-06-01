@@ -78,9 +78,7 @@ public class Critical_Skill implements SkillHero {
 
     public void update(float dt){
         duration += dt;
-        System.out.println(duration);
         if(duration >= 10){
-            System.out.println("stop");
             player.setDmg(player.getNormalDamage());
             checkCooldown();
         }
